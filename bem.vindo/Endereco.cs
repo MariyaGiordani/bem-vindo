@@ -10,7 +10,7 @@ namespace bem.vindo
     {
         public String Rua { get; set; }
         public String Complemento { get; set; }
-        public int CEP { get; set; }
+        public String CEP { get; set; }
         public String Bairro { get; set; }
         public String Cidade { get; set; }
     }
