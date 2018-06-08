@@ -12,33 +12,33 @@ namespace bem.vindo
         {
             Console.WriteLine("Bem Vindo!");
             
-            Cliente cliente1 = new Cliente();
-            Endereco cliente = new Endereco();
+            Cliente cliente = new Cliente();
+            Endereco endereco = new Endereco();
 
             
             Console.WriteLine("Digite o codigo do cliente: ");
-            cliente1.CodigoDoCliente = Int32.Parse(Console.ReadLine());
+            cliente.CodigoDoCliente = Int32.Parse(Console.ReadLine());
             Console.WriteLine("Digite o nome do cliente: ");
-            cliente1.Nome = Console.ReadLine();
+            cliente.Nome = Console.ReadLine();
             Console.WriteLine("Digite o idade do cliente: ");
-            cliente1.Idade = Int32.Parse(Console.ReadLine());
+            cliente.Idade = Int32.Parse(Console.ReadLine());
             Console.WriteLine("Digite estado civil do cliente: ");
-            cliente1.EstadoCivil = Console.ReadLine();
+            cliente.EstadoCivil = Console.ReadLine();
             Console.WriteLine("Digite o genero do cliente: ");
-            cliente1.Genero = Console.ReadLine();
-            cliente1.InfoDoCliente();
+            cliente.Genero = Console.ReadLine();
+            cliente.InfoDoCliente();
 
             Console.WriteLine("\nDigite rua: ");
-            cliente.Rua = Console.ReadLine();
+            endereco.Rua = Console.ReadLine();
             Console.WriteLine("Digite complemento: ");
-            cliente.Complemento = Console.ReadLine();
+            endereco.Complemento = Console.ReadLine();
             Console.WriteLine("Digite CEP: " );
-            cliente.CEP = Console.ReadLine();
+            endereco.CEP = Console.ReadLine();
             Console.WriteLine("Digite bairro: ");
-            cliente.Bairro = Console.ReadLine();
+            endereco.Bairro = Console.ReadLine();
             Console.WriteLine("Digite cidade: ");
-            cliente.Cidade = Console.ReadLine();
-            cliente.InfDoEndereco();
+            endereco.Cidade = Console.ReadLine();
+            endereco.InfDoEndereco();
 
 
         }
