@@ -21,13 +21,14 @@ namespace bem.vindo
         /// <param name="idade"></param>
         /// <param name="estadoCivil"></param>
         /// <param name="genero"></param>
-        public Cliente(int codigoDoCliente, String nome, int idade, String estadoCivil, String genero)
+        public void InfoDoCliente()
         {
-            CodigoDoCliente = codigoDoCliente;
-            Nome = nome;
-            Idade = idade;
-            EstadoCivil = estadoCivil;
-            Genero = genero;
+            Console.WriteLine("\n=========== INFORMAÇÃO DO CLIENTE =========");
+            Console.WriteLine("Codigo do cliente: " + this.CodigoDoCliente);
+            Console.WriteLine("Nome do cliente: " + this.Nome);
+            Console.WriteLine("Idade do cliente: " + this.Idade);
+            Console.WriteLine("Estado civil do cliente: " + this.EstadoCivil);
+            Console.WriteLine("Genero do cliente: " + this.Genero);
         }
     }
 }
