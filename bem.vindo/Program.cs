@@ -17,11 +17,11 @@ namespace bem.vindo
 
             
             Console.WriteLine("Digite o codigo do cliente: ");
-            cliente.CodigoDoCliente = Int32.Parse(Console.ReadLine());
+            cliente.CodigoDoCliente = Convert.ToInt32(Console.ReadLine().ToString());
             Console.WriteLine("Digite o nome do cliente: ");
             cliente.Nome = Console.ReadLine();
             Console.WriteLine("Digite o idade do cliente: ");
-            cliente.Idade = Int32.Parse(Console.ReadLine());
+            cliente.Idade = Convert.ToInt32(Console.ReadLine().ToString());
             Console.WriteLine("Digite estado civil do cliente: ");
             cliente.EstadoCivil = Console.ReadLine();
             Console.WriteLine("Digite o genero do cliente: ");
