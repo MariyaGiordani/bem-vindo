@@ -25,16 +25,18 @@ namespace bem.vindo
             cliente.Genero = Console.ReadLine();
             Console.Clear();
 
+
             for (int x = 1; x < 4; x++)
             {
                 Endereco endereco = new Endereco();
+                endereco.CodigoDoCliente = cliente.CodigoDoCliente;
                 Console.WriteLine("Digite rua:");
                 endereco.Rua = Console.ReadLine();
                 Console.WriteLine("Digite complemento:");
                 endereco.Complemento = Console.ReadLine();
                 Console.WriteLine("Digite CEP:");
                 endereco.CEP = Console.ReadLine();
-                Console.WriteLine("Digite baixo:");
+                Console.WriteLine("Digite bairro:");
                 endereco.Bairro = Console.ReadLine();
                 Console.WriteLine("Digite cidade:");
                 endereco.Cidade = Console.ReadLine();

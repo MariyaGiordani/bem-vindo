@@ -29,6 +29,7 @@ namespace bem.vindo
             {
                 numEndereco++;
                 Console.WriteLine("\n========= INFORMAÇÃO DO ENDEREÇO:" + numEndereco + " ========");
+                Console.WriteLine("Codigo do cliente:" + CodigoDoCliente);
                 Console.WriteLine("Rua:" + dados.Rua);
                 Console.WriteLine("Complemento:" + dados.Complemento);
                 Console.WriteLine("CEP:" + dados.CEP);
