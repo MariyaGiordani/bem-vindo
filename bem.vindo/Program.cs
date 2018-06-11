@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace bem.vindo
 {
     class Program
@@ -17,21 +18,30 @@ namespace bem.vindo
             {
                 Console.WriteLine("Digite o codigo do cliente: ");
                 cliente.CodigoDoCliente = Convert.ToInt32(Console.ReadLine().ToString());
-                Console.WriteLine("Digite o nome do cliente: ");
-                cliente.Nome = Console.ReadLine();
-                Console.WriteLine("Digite o idade do cliente: ");
-                cliente.Idade = Convert.ToInt32(Console.ReadLine().ToString());
-                Console.WriteLine("Digite estado civil do cliente: ");
-                cliente.EstadoCivil = Console.ReadLine();
-                Console.WriteLine("Digite o genero do cliente: ");
-                cliente.Genero = Console.ReadLine();
-                Console.Clear();
 
             }
-            catch(Exception e)
+            catch
             {
-                Console.WriteLine("{0} Exception caught.", e);
+                Console.WriteLine("Informação digitada está errada!!!");
             }
+            Console.WriteLine("Digite o nome do cliente: ");
+            cliente.Nome = Console.ReadLine();
+            try
+            {
+                Console.WriteLine("Digite o idade do cliente: ");
+                cliente.Idade = Convert.ToInt32(Console.ReadLine().ToString());
+
+            }
+            catch
+            {
+                Console.WriteLine("Informação digitada está errada!!!");
+                
+            }
+            Console.WriteLine("Digite estado civil do cliente: ");
+            cliente.EstadoCivil = Console.ReadLine();
+            Console.WriteLine("Digite o genero do cliente: ");
+            cliente.Genero = Console.ReadLine();
+            Console.Clear();
 
 
 
