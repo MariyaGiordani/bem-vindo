@@ -26,7 +26,7 @@ namespace bem.vindo
                 Console.WriteLine("\nLista dos nomes do clientes já cadastrado:");
                 foreach (var cliente in listaCliente)
                 {
-                    cliente.NomeCliente();
+                    Console.WriteLine(cliente.Nome);
                 }
             }
         }
@@ -41,8 +41,7 @@ namespace bem.vindo
             {
                 Console.WriteLine("Digite o codigo do cliente: ");
                 cliente.CodigoDoCliente = Convert.ToInt32(Console.ReadLine().ToString());
-               // int pos = listaCliente.FindIndex(x => x.CodigoDoCliente == cliente.CodigoDoCliente);
-                //Console.WriteLine("Posição do codigo = " + pos);
+              
                 do
                 {
                     if (listaCliente.FindIndex(x => x.CodigoDoCliente == cliente.CodigoDoCliente) != -1)
