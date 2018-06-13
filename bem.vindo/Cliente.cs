@@ -40,6 +40,11 @@ namespace bem.vindo
             Console.ReadLine();
         }
 
+        public void NomeCliente()
+        {
+            Console.WriteLine("Nome do cliente:" + this.Nome);
+        }
+
 
     }
 }

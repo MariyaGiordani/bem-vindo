@@ -15,23 +15,25 @@ namespace bem.vindo
             while (1 == 1)
             {
                 listaCliente.Add(Cadastro());
- 
-                Console.WriteLine("\nGostaria de imprimir lista do cliente? \n S-Sim \n N-Não");
+                Console.WriteLine("Gostaria de adicionar um novo cliente? \n S-Sim \n N-Não");
                 string resposta = Console.ReadLine().ToUpper();
-                if (resposta == "S")
+                if (resposta == "N")
                 {
-                    foreach (var cliente in listaCliente)
-                    {
-                        cliente.InfoDoCliente();
-                        Console.ReadLine();
-                    }
+                    Environment.Exit(0);
+                }
+                Console.Clear();
+                Console.WriteLine("\nLista dos nomes do clientes já cadastrado:");
+                foreach (var cliente in listaCliente)
+                {
+                    cliente.NomeCliente();
                 }
             }
         }
 
         public static Cliente Cadastro()
         {
-            Console.WriteLine("\nBem Vindo!");
+            Console.Clear();
+            Console.WriteLine("======= Bem Vindo! ========");
 
             Cliente cliente = new Cliente();
 
@@ -69,14 +71,7 @@ namespace bem.vindo
                     Console.Clear();
 
                 }
-
                 cliente.InfoDoCliente();
-                Console.WriteLine("Gostaria de adicionar um novo cliente? \n S-Sim \n N-Não");
-                string resposta = Console.ReadLine().ToUpper();
-                if (resposta == "N")
-                {
-                    Environment.Exit(0);
-                }
                 Console.Clear();
 
             }
