@@ -9,9 +9,10 @@ namespace bem.vindo
 {
     class Program
     {
+        public static List<Cliente> listaCliente = new List<Cliente>();
         static void Main(string[] args)
         {
-            List<Cliente> listaCliente = new List<Cliente>();
+
             while (1 == 1)
             {
                 listaCliente.Add(Cadastro());
@@ -32,7 +33,6 @@ namespace bem.vindo
 
         public static Cliente Cadastro()
         {
-            Console.Clear();
             Console.WriteLine("======= Bem Vindo! ========");
 
             Cliente cliente = new Cliente();
@@ -41,6 +41,18 @@ namespace bem.vindo
             {
                 Console.WriteLine("Digite o codigo do cliente: ");
                 cliente.CodigoDoCliente = Convert.ToInt32(Console.ReadLine().ToString());
+               // int pos = listaCliente.FindIndex(x => x.CodigoDoCliente == cliente.CodigoDoCliente);
+                //Console.WriteLine("Posição do codigo = " + pos);
+                do
+                {
+                    if (listaCliente.FindIndex(x => x.CodigoDoCliente == cliente.CodigoDoCliente) != -1)
+                    {
+                        Console.WriteLine("Codigo de cliente já existe!");
+                        Console.WriteLine("Digite de novo!");
+                        Console.WriteLine("Digite o codigo do cliente: ");
+                        cliente.CodigoDoCliente = Convert.ToInt32(Console.ReadLine().ToString());
+                    }
+                } while (listaCliente.FindIndex(x => x.CodigoDoCliente == cliente.CodigoDoCliente) != -1);
                 Console.WriteLine("Digite o nome do cliente: ");
                 cliente.Nome = Console.ReadLine();
                 Console.WriteLine("Digite o idade do cliente: ");
