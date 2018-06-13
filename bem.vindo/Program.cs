@@ -11,17 +11,30 @@ namespace bem.vindo
     {
         static void Main(string[] args)
         {
+            List<Cliente> listaCliente = new List<Cliente>();
             while (1 == 1)
             {
-                Cadastro();
+                listaCliente.Add(Cadastro());
+ 
+                Console.WriteLine("\nGostaria de imprimir lista do cliente? \n S-Sim \n N-Não");
+                string resposta = Console.ReadLine().ToUpper();
+                if (resposta == "S")
+                {
+                    foreach (var cliente in listaCliente)
+                    {
+                        cliente.InfoDoCliente();
+                        Console.ReadLine();
+                    }
+                }
             }
         }
 
-        public static void Cadastro()
+        public static Cliente Cadastro()
         {
             Console.WriteLine("\nBem Vindo!");
 
             Cliente cliente = new Cliente();
+
             try
             {
                 Console.WriteLine("Digite o codigo do cliente: ");
@@ -35,6 +48,7 @@ namespace bem.vindo
                 Console.WriteLine("Digite o genero do cliente: ");
                 cliente.Genero = Console.ReadLine();
                 Console.Clear();
+
 
 
                 for (int x = 1; x < 4; x++)
@@ -51,21 +65,28 @@ namespace bem.vindo
                     endereco.Bairro = Console.ReadLine();
                     Console.WriteLine("Digite cidade:");
                     endereco.Cidade = Console.ReadLine();
-                    cliente.lista.Add(endereco);
+                    cliente.listaEndereco.Add(endereco);
                     Console.Clear();
 
                 }
+
                 cliente.InfoDoCliente();
+                Console.WriteLine("Gostaria de adicionar um novo cliente? \n S-Sim \n N-Não");
+                string resposta = Console.ReadLine().ToUpper();
+                if (resposta == "N")
+                {
+                    Environment.Exit(0);
+                }
+                Console.Clear();
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Erro na digitação!");
                 Console.WriteLine("Mensagem de erro:" + ex.Message);
-                Console.ReadLine();
+                Console.ReadKey();
             }
-
-
+            return cliente;
         }
     }
 }
