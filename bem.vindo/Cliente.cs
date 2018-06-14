@@ -17,6 +17,58 @@ namespace bem.vindo
 
         public List<Endereco> listaEndereco = new List<Endereco>();
 
+        public void TipoGeneros()
+        {
+            bool control = true;
+            while (control)
+            {
+                Console.WriteLine("{0} - M / {1} - F / {2} - N", Genero.Masculino.ToString(), Genero.Feminino.ToString(), Genero.NA.ToString());
+                string respostaGenero = Console.ReadLine().ToUpper();
+                switch (respostaGenero)
+                {
+                    case "M":
+                        Genero = Genero.Masculino;
+                        control = false;
+                        break;
+                    case "F":
+                        Genero = Genero.Feminino;
+                        control = false;
+                        break;
+                    case "N":
+                        Genero = Genero.NA;
+                        control = false;
+                        break;
+                    default:
+                        Console.WriteLine("Resposta inválida!");
+                        break;
+                }
+            }
+        }
+
+        public void TipoDeCliente()
+        {
+            bool opcao = true;
+            while (opcao)
+            {
+                Console.WriteLine("{0} - F / {1} - J", TipoCliente.Fisical.ToString(), TipoCliente.Juridica.ToString());
+                string respostaGenero = Console.ReadLine().ToUpper();
+                switch (respostaGenero)
+                {
+                    case "F":
+                        TipoCliente = TipoCliente.Fisical;
+                        opcao = false;
+                        break;
+                    case "J":
+                        TipoCliente = TipoCliente.Juridica;
+                        opcao = false;
+                        break;
+                    default:
+                        Console.WriteLine("Resposta inválida!");
+                        break;
+                }
+            }
+        }
+
         public void InfoDoCliente()
         {
             int numEndereco = 0;

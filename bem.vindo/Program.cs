@@ -41,27 +41,7 @@ namespace bem.vindo
             try
             {
                 Console.WriteLine("Escole tipo de cliente: ");
-                bool opcao = true;
-                while (opcao)
-                {
-                    Console.WriteLine("{0} - F / {1} - J", TipoCliente.Fisical.ToString(), TipoCliente.Juridica.ToString());
-                    string respostaGenero = Console.ReadLine().ToUpper();
-                    switch (respostaGenero)
-                    {
-                        case "F":
-                            cliente.TipoCliente = TipoCliente.Fisical;
-                            opcao = false;
-                            break;
-                        case "J":
-                            cliente.TipoCliente = TipoCliente.Juridica;
-                            opcao = false;
-                            break;
-                        default:
-                            Console.WriteLine("Resposta inválida!");
-                            break;
-                    }
-                }
-
+                cliente.TipoDeCliente();
                 Console.WriteLine("Digite o codigo do cliente: ");
                 cliente.CodigoDoCliente = Convert.ToInt32(Console.ReadLine().ToString());
 
@@ -81,34 +61,8 @@ namespace bem.vindo
                 cliente.Idade = Convert.ToInt32(Console.ReadLine().ToString());
                 Console.WriteLine("Digite estado civil do cliente: ");
                 cliente.EstadoCivil = Console.ReadLine();
-
                 Console.WriteLine("Digite o genero do cliente: ");
-                // exibir opções
-                bool control = true;
-                while (control)
-                {
-                    Console.WriteLine("{0} - M / {1} - F / {2} - N", Genero.Masculino.ToString(), Genero.Feminino.ToString(), Genero.NA.ToString());
-                    string respostaGenero = Console.ReadLine().ToUpper();
-                    switch (respostaGenero)
-                    {
-                        case "M":
-                            cliente.Genero = Genero.Masculino;
-                            control = false;
-                            break;
-                        case "F":
-                            cliente.Genero = Genero.Feminino;
-                            control = false;
-                            break;
-                        case "N":
-                            cliente.Genero = Genero.NA;
-                            control = false;
-                            break;
-                        default:
-                            Console.WriteLine("Resposta inválida!");
-                            break;
-                    }
-                }
-
+                cliente.TipoGeneros();
                 Console.Clear();
 
 
@@ -118,30 +72,7 @@ namespace bem.vindo
                     Endereco endereco = new Endereco();
                     endereco.CodigoDoCliente = cliente.CodigoDoCliente;
                     Console.WriteLine("Escolha tipo de logradouro:");
-                    bool tipo = true;
-                    while (tipo)
-                    {
-                        Console.WriteLine("{0} - A / {1} - R / {2} - T", TipoLogradouro.Avenida.ToString(), TipoLogradouro.Rua.ToString(), TipoLogradouro.Travessa.ToString());
-                        string respostaGenero = Console.ReadLine().ToUpper();
-                        switch (respostaGenero)
-                        {
-                            case "A":
-                                endereco.TipoLogradouro = TipoLogradouro.Avenida;
-                                tipo = false;
-                                break;
-                            case "R":
-                                endereco.TipoLogradouro = TipoLogradouro.Rua;
-                                tipo = false;
-                                break;
-                            case "T":
-                                endereco.TipoLogradouro = TipoLogradouro.Travessa;
-                                tipo = false;
-                                break;
-                            default:
-                                Console.WriteLine("Resposta inválida!");
-                                break;
-                        }
-                    }
+                    endereco.Logradouro();
                     Console.WriteLine("Escolha tipo de logradouro:");
                     endereco.NomeLogradouro = Console.ReadLine();
                     Console.WriteLine("Digite complemento:");
