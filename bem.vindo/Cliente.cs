@@ -47,6 +47,8 @@ namespace bem.vindo
                         {
                             Console.WriteLine("Idade é obrigatório.");
                         }
+                        Console.WriteLine("Digite o idade do cliente: ");
+                        this.Idade = Convert.ToInt32(Console.ReadLine().ToString());
                     }
                     test = false;
                 }
