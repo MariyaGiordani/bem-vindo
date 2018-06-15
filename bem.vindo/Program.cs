@@ -41,7 +41,9 @@ namespace bem.vindo
 
             Console.WriteLine("Escolha tipo de cliente: ");
             cliente.TipoDeCliente();
-            //Console.WriteLine("Digite o codigo do cliente: ");
+            
+            Console.WriteLine("Codigo do cliente: " );
+            Console.WriteLine(cliente.CodigoDoCliente = System.Guid.NewGuid());
             cliente.CodigoCliente(listaCliente);
             Console.WriteLine("Digite o nome do cliente: ");
             cliente.NomeCliente();

@@ -9,7 +9,7 @@ namespace bem.vindo
     class Cliente
     {
         public TipoCliente TipoCliente { get; set; }
-        public int CodigoDoCliente { get; set; }
+        public Guid CodigoDoCliente { get; set; }
         public String Nome { get; set; }
         public int Idade { get; set; }
         public EstadoCivil EstadoCivil { get; set; }
@@ -85,30 +85,21 @@ namespace bem.vindo
                 }
             }
         }
-        public void CodigoCliente(List<Cliente> clientes)
+       public void CodigoCliente(List<Cliente> clientes)
         {
             bool test = true;
             while (test)
             {
-                try
-                {
-                    Console.WriteLine("Digite o codigo do cliente: ");
-                    this.CodigoDoCliente = Convert.ToInt32(Console.ReadLine().ToString());
                     do
                     {
                         if (clientes.FindIndex(x => x.CodigoDoCliente == CodigoDoCliente) != -1)
                         {
                             Console.WriteLine("Codigo de cliente já existe!");
-                            Console.WriteLine("Digite o codigo do cliente: ");
-                            CodigoDoCliente = Convert.ToInt32(Console.ReadLine().ToString());
+                            Console.WriteLine("Codigo do cliente: ");
+                            Console.WriteLine(this.CodigoDoCliente = System.Guid.NewGuid());
                         }
                     } while (clientes.FindIndex(x => x.CodigoDoCliente == this.CodigoDoCliente) != -1);
                     test = false;
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Erro na digitação!");
-                }
             }
         }
 

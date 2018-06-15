@@ -8,7 +8,7 @@ namespace bem.vindo
 {
     class Endereco
     {
-        public int CodigoDoCliente { get; set; }
+        public Guid CodigoDoCliente { get; set; }
         public TipoLogradouro TipoLogradouro { get; set; }
         public String NomeLogradouro { get; set; }
         public String Complemento { get; set; }
