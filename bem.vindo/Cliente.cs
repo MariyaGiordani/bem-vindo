@@ -12,7 +12,7 @@ namespace bem.vindo
         public int CodigoDoCliente { get; set; }
         public String Nome { get; set; }
         public int Idade { get; set; }
-        public String EstadoCivil { get; set; }
+        public EstadoCivil EstadoCivil { get; set; }
         public Genero Genero { get; set; }
 
         public List<Endereco> listaEndereco = new List<Endereco>();
@@ -20,9 +20,9 @@ namespace bem.vindo
         public void NomeCliente()
         {
             this.Nome = Console.ReadLine();
-            while (string.IsNullOrEmpty(this.Nome))
+            while (string.IsNullOrWhiteSpace(this.Nome))
             {
-                if (string.IsNullOrEmpty(this.Nome))
+                if (string.IsNullOrWhiteSpace(this.Nome))
                 {
                     Console.WriteLine("Nome é obrigatório.");
                 }
@@ -41,41 +41,49 @@ namespace bem.vindo
                 {
                     Console.WriteLine("Digite o idade do cliente: ");
                     this.Idade = Convert.ToInt32(Console.ReadLine().ToString());
-                    while (string.IsNullOrEmpty(this.Idade.ToString()))
-                    {
-                        if (string.IsNullOrEmpty(this.Idade.ToString()))
-                        {
-                            Console.WriteLine("Idade é obrigatório.");
-                        }
-                        Console.WriteLine("Digite o idade do cliente: ");
-                        this.Idade = Convert.ToInt32(Console.ReadLine().ToString());
-                    }
                     test = false;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Console.WriteLine("Erro na digitação!");
-                    Console.WriteLine("Mensagem de erro:" + ex.Message);
-                    Console.ReadKey();
 
                 }
             }
 
         }
 
+
         public void EstadoCivilCliente()
         {
-            this.EstadoCivil = Console.ReadLine();
-            while (string.IsNullOrEmpty(this.EstadoCivil))
+            bool control = true;
+            while (control)
             {
-                if (string.IsNullOrEmpty(this.EstadoCivil))
+                Console.WriteLine("{0}  / {1}  / {2} / {3} ", EstadoCivil.Solteiro.ToString(), vindo.EstadoCivil.Casado.ToString(), vindo.EstadoCivil.Viuvo.ToString(), vindo.EstadoCivil.Divorciado.ToString());
+                string respostaEstadoCivil = Console.ReadLine().ToUpper();
+                switch (respostaEstadoCivil)
                 {
-                    Console.WriteLine("Estado civil é obrigatório.");
+                    case "SOLTEIRO":
+                        EstadoCivil = EstadoCivil.Solteiro;
+                        control = false;
+                        break;
+                    case "CASADO":
+                        EstadoCivil = EstadoCivil.Casado;
+                        control = false;
+                        break;
+                    case "VIUVO":
+                        EstadoCivil = EstadoCivil.Viuvo;
+                        control = false;
+                        break;
+                    case "DIVORCIADO":
+                        EstadoCivil = EstadoCivil.Divorciado;
+                        control = false;
+                        break;
+                    default:
+                        Console.WriteLine("Resposta inválida!");
+                        Console.WriteLine("Estado civil é obrigatório!");
+                        break;
                 }
-                Console.WriteLine("Digite o estado civil do cliente: ");
-                this.EstadoCivil = Console.ReadLine();
             }
-
         }
         public void CodigoCliente(List<Cliente> clientes)
         {
@@ -97,11 +105,9 @@ namespace bem.vindo
                     } while (clientes.FindIndex(x => x.CodigoDoCliente == this.CodigoDoCliente) != -1);
                     test = false;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Console.WriteLine("Erro na digitação!");
-                    Console.WriteLine("Mensagem de erro:" + ex.Message);
-                    Console.ReadKey();
                 }
             }
         }

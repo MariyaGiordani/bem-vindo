@@ -20,9 +20,9 @@ namespace bem.vindo
         public void NomeDoLogradouro()
         {
             this.NomeLogradouro = Console.ReadLine();
-            while (string.IsNullOrEmpty(this.NomeLogradouro))
+            while (string.IsNullOrWhiteSpace(this.NomeLogradouro))
             {
-                if (string.IsNullOrEmpty(this.NomeLogradouro))
+                if (string.IsNullOrWhiteSpace(this.NomeLogradouro))
                 {
                     Console.WriteLine("Nome do logradouro é obrigatório.");
                 }
@@ -35,9 +35,9 @@ namespace bem.vindo
         public void ComplementoEndereco()
         {
             this.Complemento = Console.ReadLine();
-            while (string.IsNullOrEmpty(this.Complemento))
+            while (string.IsNullOrWhiteSpace(this.Complemento))
             {
-                if (string.IsNullOrEmpty(this.Complemento))
+                if (string.IsNullOrWhiteSpace(this.Complemento))
                 {
                     Console.WriteLine("Complemento é obrigatório.");
                 }
@@ -50,9 +50,9 @@ namespace bem.vindo
         public void CEPEdndereco()
         {
             this.CEP = Console.ReadLine();
-            while (string.IsNullOrEmpty(this.CEP))
+            while (string.IsNullOrWhiteSpace(this.CEP))
             {
-                if (string.IsNullOrEmpty(this.CEP))
+                if (string.IsNullOrWhiteSpace(this.CEP))
                 {
                     Console.WriteLine("CEP é obrigatório.");
                 }
@@ -64,9 +64,9 @@ namespace bem.vindo
         public void BairroEndereco()
         {
             this.Bairro = Console.ReadLine();
-            while (string.IsNullOrEmpty(this.Bairro))
+            while (string.IsNullOrWhiteSpace(this.Bairro))
             {
-                if (string.IsNullOrEmpty(this.Bairro))
+                if (string.IsNullOrWhiteSpace(this.Bairro))
                 {
                     Console.WriteLine("Bairro é obrigatório.");
                 }
@@ -78,9 +78,9 @@ namespace bem.vindo
         public void CidadeEndereco()
         {
             this.Cidade = Console.ReadLine();
-            while (string.IsNullOrEmpty(this.Cidade))
+            while (string.IsNullOrWhiteSpace(this.Cidade))
             {
-                if (string.IsNullOrEmpty(this.Cidade))
+                if (string.IsNullOrWhiteSpace(this.Cidade))
                 {
                     Console.WriteLine("Cidade é obrigatório.");
                 }
@@ -106,7 +106,7 @@ namespace bem.vindo
                         TipoLogradouro = TipoLogradouro.Rua;
                         tipo = false;
                         break;
-                    case "TREVASSA":
+                    case "TRAVESSA":
                         TipoLogradouro = TipoLogradouro.Travessa;
                         tipo = false;
                         break;
