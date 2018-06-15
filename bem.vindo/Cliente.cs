@@ -17,29 +17,117 @@ namespace bem.vindo
 
         public List<Endereco> listaEndereco = new List<Endereco>();
 
+        public void NomeCliente()
+        {
+            this.Nome = Console.ReadLine();
+            while (string.IsNullOrEmpty(this.Nome))
+            {
+                if (string.IsNullOrEmpty(this.Nome))
+                {
+                    Console.WriteLine("Nome é obrigatório.");
+                }
+                Console.WriteLine("Digite o nome do cliente: ");
+                this.Nome = Console.ReadLine();
+            }
+
+        }
+
+        public void IdadeCliente()
+        {
+            bool test = true;
+            while (test)
+            {
+                try
+                {
+                    Console.WriteLine("Digite o idade do cliente: ");
+                    this.Idade = Convert.ToInt32(Console.ReadLine().ToString());
+                    while (string.IsNullOrEmpty(this.Idade.ToString()))
+                    {
+                        if (string.IsNullOrEmpty(this.Idade.ToString()))
+                        {
+                            Console.WriteLine("Idade é obrigatório.");
+                        }
+                    }
+                    test = false;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Erro na digitação!");
+                    Console.WriteLine("Mensagem de erro:" + ex.Message);
+                    Console.ReadKey();
+
+                }
+            }
+
+        }
+
+        public void EstadoCivilCliente()
+        {
+            this.EstadoCivil = Console.ReadLine();
+            while (string.IsNullOrEmpty(this.EstadoCivil))
+            {
+                if (string.IsNullOrEmpty(this.EstadoCivil))
+                {
+                    Console.WriteLine("Estado civil é obrigatório.");
+                }
+                Console.WriteLine("Digite o estado civil do cliente: ");
+                this.EstadoCivil = Console.ReadLine();
+            }
+
+        }
+        public void CodigoCliente(List<Cliente> clientes)
+        {
+            bool test = true;
+            while (test)
+            {
+                try
+                {
+                    Console.WriteLine("Digite o codigo do cliente: ");
+                    this.CodigoDoCliente = Convert.ToInt32(Console.ReadLine().ToString());
+                    do
+                    {
+                        if (clientes.FindIndex(x => x.CodigoDoCliente == CodigoDoCliente) != -1)
+                        {
+                            Console.WriteLine("Codigo de cliente já existe!");
+                            Console.WriteLine("Digite o codigo do cliente: ");
+                            CodigoDoCliente = Convert.ToInt32(Console.ReadLine().ToString());
+                        }
+                    } while (clientes.FindIndex(x => x.CodigoDoCliente == this.CodigoDoCliente) != -1);
+                    test = false;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Erro na digitação!");
+                    Console.WriteLine("Mensagem de erro:" + ex.Message);
+                    Console.ReadKey();
+                }
+            }
+        }
+
         public void TipoGeneros()
         {
             bool control = true;
             while (control)
             {
-                Console.WriteLine("{0} - M / {1} - F / {2} - N", Genero.Masculino.ToString(), Genero.Feminino.ToString(), Genero.NA.ToString());
+                Console.WriteLine("{0}  / {1}  / {2} ", Genero.Masculino.ToString(), Genero.Feminino.ToString(), Genero.NA.ToString());
                 string respostaGenero = Console.ReadLine().ToUpper();
                 switch (respostaGenero)
                 {
-                    case "M":
+                    case "MASCULINO":
                         Genero = Genero.Masculino;
                         control = false;
                         break;
-                    case "F":
+                    case "FEMININO":
                         Genero = Genero.Feminino;
                         control = false;
                         break;
-                    case "N":
+                    case "NA":
                         Genero = Genero.NA;
                         control = false;
                         break;
                     default:
                         Console.WriteLine("Resposta inválida!");
+                        Console.WriteLine("Genero é obrigatório!");
                         break;
                 }
             }
@@ -50,15 +138,15 @@ namespace bem.vindo
             bool opcao = true;
             while (opcao)
             {
-                Console.WriteLine("{0} - F / {1} - J", TipoCliente.Fisical.ToString(), TipoCliente.Juridica.ToString());
-                string respostaGenero = Console.ReadLine().ToUpper();
-                switch (respostaGenero)
+                Console.WriteLine("{0}  / {1} ", TipoCliente.Fisica.ToString(), TipoCliente.Juridica.ToString());
+                string respostaTipoCliente = Console.ReadLine().ToUpper();
+                switch (respostaTipoCliente)
                 {
-                    case "F":
-                        TipoCliente = TipoCliente.Fisical;
+                    case "FISICA":
+                        TipoCliente = TipoCliente.Fisica;
                         opcao = false;
                         break;
-                    case "J":
+                    case "JURIDICA":
                         TipoCliente = TipoCliente.Juridica;
                         opcao = false;
                         break;
@@ -68,6 +156,7 @@ namespace bem.vindo
                 }
             }
         }
+
 
         public void InfoDoCliente()
         {

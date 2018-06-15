@@ -3,7 +3,7 @@ namespace bem.vindo
 {
    enum TipoCliente
     {
-        Fisical = 0, 
+        Fisica = 0, 
         Juridica = 1,
     } 
 }
