@@ -17,6 +17,42 @@ namespace bem.vindo
 
         public List<Endereco> listaEndereco = new List<Endereco>();
 
+
+
+
+        public Cliente CadartrarCliente()
+        {
+            Console.WriteLine("\n======= Bem Vindo! ========");
+
+            Cliente cliente = new Cliente();
+
+            Console.WriteLine("Escolha tipo de cliente: ");
+            cliente.TipoDeCliente();
+
+            Console.WriteLine("Codigo do cliente: ");
+            Console.WriteLine(cliente.CodigoDoCliente = System.Guid.NewGuid());
+            Console.WriteLine("Digite o nome do cliente: ");
+            cliente.NomeCliente();
+            cliente.IdadeCliente();
+            Console.WriteLine("Digite estado civil do cliente: ");
+            cliente.EstadoCivilCliente();
+            Console.WriteLine("Digite o genero do cliente: ");
+            cliente.TipoGeneros();
+            Console.Clear();
+
+            for (int x = 1; x < 4; x++)
+            {
+                Endereco endereco = new Endereco();
+                endereco.CodigoDoCliente = cliente.CodigoDoCliente;
+                endereco.CadastrarEndereco();
+                cliente.listaEndereco.Add(endereco);
+            }
+            cliente.InfoDoCliente();
+            Console.Clear();
+            return cliente;
+        }
+
+
         public void NomeCliente()
         {
             this.Nome = Console.ReadLine();
@@ -85,20 +121,20 @@ namespace bem.vindo
                 }
             }
         }
-       public void CodigoCliente(List<Cliente> clientes)
+       public void CodigoCliente(List<Cliente> cliente)
         {
             bool test = true;
             while (test)
             {
                     do
                     {
-                        if (clientes.FindIndex(x => x.CodigoDoCliente == CodigoDoCliente) != -1)
+                        if (cliente.FindIndex(x => x.CodigoDoCliente == CodigoDoCliente) != -1)
                         {
                             Console.WriteLine("Codigo de cliente já existe!");
                             Console.WriteLine("Codigo do cliente: ");
                             Console.WriteLine(this.CodigoDoCliente = System.Guid.NewGuid());
                         }
-                    } while (clientes.FindIndex(x => x.CodigoDoCliente == this.CodigoDoCliente) != -1);
+                    } while (cliente.FindIndex(x => x.CodigoDoCliente == this.CodigoDoCliente) != -1);
                     test = false;
             }
         }
@@ -173,7 +209,7 @@ namespace bem.vindo
                 numEndereco++;
                 Console.WriteLine("\n========= INFORMAÇÃO DO ENDEREÇO:" + numEndereco + " ========");
                 Console.WriteLine("Codigo do cliente:" + dadosEndereco.CodigoDoCliente);
-                Console.WriteLine("" + dadosEndereco.TipoLogradouro + ": " + dadosEndereco.NomeLogradouro);
+                Console.WriteLine("" + dadosEndereco.TipoLogradouro + " : " + dadosEndereco.NomeLogradouro);
                 Console.WriteLine("Complemento:" + dadosEndereco.Complemento);
                 Console.WriteLine("CEP:" + dadosEndereco.CEP);
                 Console.WriteLine("Bairro:" + dadosEndereco.Bairro);
@@ -181,8 +217,5 @@ namespace bem.vindo
             }
             Console.ReadLine();
         }
-
-
-
     }
 }

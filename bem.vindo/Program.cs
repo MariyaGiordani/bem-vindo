@@ -9,72 +9,43 @@ namespace bem.vindo
 {
     class Program
     {
-        public static List<Cliente> listaCliente = new List<Cliente>();
         static void Main(string[] args)
         {
-
-
-            while (1 == 1)
+            CadastroGeral cadastro = new CadastroGeral();
+            bool controle = true;   
+            while (controle)
             {
-                listaCliente.Add(Cadastro());
-                Console.WriteLine("Gostaria de adicionar um novo cliente? \n S-Sim \n N-Não");
-                string resposta = Console.ReadLine().ToUpper();
-                if (resposta == "N")
+                try
                 {
-                    Environment.Exit(0);
+                    int opcao;
+                    Console.WriteLine(" ============ CADASTRO DO CLIENTE ==============");
+                    Console.WriteLine("| 1 - Cadastrar novo cliente                    |");
+                    Console.WriteLine("| 2 - Exibir lista com nomes de todos clientes  |");
+                    Console.WriteLine("| 0 - Sair                                      |");
+                    Console.WriteLine(" ===============================================\n");
+                    Console.WriteLine("Digite a opção que gostaria?");
+                    opcao = Int32.Parse(Console.ReadLine());
+                    switch (opcao)
+                    {
+                        case 1:
+                           cadastro.CadastroCliente();
+                            break;
+                        case 2:
+                            cadastro.ExibirClientes();
+                            break;
+                        default:
+                            cadastro.sairPrograma();
+                            break;
+                    }
+                    Console.ReadKey();
+                    Console.Clear();
                 }
-                Console.Clear();
-                Console.WriteLine("\nLista dos nomes do clientes já cadastrado:");
-                foreach (var cliente in listaCliente)
+                catch (Exception)
                 {
-                    Console.WriteLine("Nome do cliente: " + cliente.Nome);
+
+                    Console.WriteLine("\nErro na digitação!");
                 }
             }
-        }
-
-        public static Cliente Cadastro()
-        {
-            Console.WriteLine("======= Bem Vindo! ========");
-
-            Cliente cliente = new Cliente();
-
-
-            Console.WriteLine("Escolha tipo de cliente: ");
-            cliente.TipoDeCliente();
-            
-            Console.WriteLine("Codigo do cliente: " );
-            Console.WriteLine(cliente.CodigoDoCliente = System.Guid.NewGuid());
-            cliente.CodigoCliente(listaCliente);
-            Console.WriteLine("Digite o nome do cliente: ");
-            cliente.NomeCliente();
-            cliente.IdadeCliente();
-            Console.WriteLine("Digite estado civil do cliente: ");
-            cliente.EstadoCivilCliente();
-            Console.WriteLine("Digite o genero do cliente: ");
-            cliente.TipoGeneros();
-            Console.Clear();
-
-            for (int x = 1; x < 4; x++)
-            {
-                Endereco endereco = new Endereco();
-                endereco.CodigoDoCliente = cliente.CodigoDoCliente;
-                Console.WriteLine("Escolha tipo de logradouro:");
-                endereco.Logradouro();
-                Console.WriteLine("Digite complemento:");
-                endereco.ComplementoEndereco();
-                Console.WriteLine("Digite CEP:");
-                endereco.CEPEdndereco();
-                Console.WriteLine("Digite bairro:");
-                endereco.BairroEndereco();
-                Console.WriteLine("Digite cidade:");
-                endereco.CidadeEndereco();
-                cliente.listaEndereco.Add(endereco);
-                Console.Clear();
-
-            }
-            cliente.InfoDoCliente();
-            Console.Clear();
-            return cliente;
         }
     }
 }

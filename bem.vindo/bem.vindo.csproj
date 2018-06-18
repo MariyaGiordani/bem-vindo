@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CadastroGeral.cs" />
     <Compile Include="EstadoCivil.cs" />
     <Compile Include="Genero.cs" />
     <Compile Include="Cliente.cs" />

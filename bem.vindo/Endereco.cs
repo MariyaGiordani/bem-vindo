@@ -16,6 +16,23 @@ namespace bem.vindo
         public String Bairro { get; set; }
         public String Cidade { get; set; }
 
+        public void CadastrarEndereco()
+        {
+            Console.WriteLine("Escolha tipo de logradouro:");
+            Logradouro();
+            Console.WriteLine("Digite nome da {0} :", this.TipoLogradouro);
+            NomeDoLogradouro();
+            Console.WriteLine("Digite complemento:");
+            ComplementoEndereco();
+            Console.WriteLine("Digite CEP:");
+            CEPEdndereco();
+            Console.WriteLine("Digite bairro:");
+            BairroEndereco();
+            Console.WriteLine("Digite cidade:");
+            CidadeEndereco();
+            Console.Clear();
+        }
+    
 
         public void NomeDoLogradouro()
         {
@@ -31,6 +48,7 @@ namespace bem.vindo
             }
 
         }
+
 
         public void ComplementoEndereco()
         {
