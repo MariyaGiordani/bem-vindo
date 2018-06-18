@@ -1,8 +1,8 @@
 ﻿
 
-namespace bem.vindo
+namespace bem.vindo.Utils
 {
-    enum Genero
+    public enum EnumGenero
     {
         Masculino = 0,
         Feminino = 1,

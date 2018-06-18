@@ -1,7 +1,7 @@
 ﻿
-namespace bem.vindo
+namespace bem.vindo.Utils
 {
-  enum EstadoCivil
+    public enum EnumEstadoCivil
     {
         Solteiro = 0,
         Casado = 1,

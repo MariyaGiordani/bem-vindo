@@ -1,19 +1,21 @@
 ﻿using System;
+using bem.vindo.Model;
+using bem.vindo.Business;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 
-namespace bem.vindo
+namespace bem.vindo.Model
 {
     class Program
     {
         static void Main(string[] args)
         {
             CadastroGeral cadastro = new CadastroGeral();
-            bool controle = true;   
-            while (controle)
+            bool pertence = true;   
+            while (pertence)
             {
                 try
                 {
@@ -34,7 +36,8 @@ namespace bem.vindo
                             cadastro.ExibirClientes();
                             break;
                         default:
-                            cadastro.sairPrograma();
+                            Console.WriteLine("Você está saindo do programa. Muito obrigada :-)");
+                            pertence = false;
                             break;
                     }
                     Console.ReadKey();

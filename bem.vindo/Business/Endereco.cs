@@ -1,15 +1,16 @@
-﻿using System;
+﻿using bem.vindo.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace bem.vindo
+namespace bem.vindo.Business
 {
     class Endereco
     {
         public Guid CodigoDoCliente { get; set; }
-        public TipoLogradouro TipoLogradouro { get; set; }
+        public EnumTipoLogradouro TipoLogradouro { get; set; }
         public String NomeLogradouro { get; set; }
         public String Complemento { get; set; }
         public String CEP { get; set; }
@@ -112,20 +113,20 @@ namespace bem.vindo
             bool tipo = true;
             while (tipo)
             {
-                Console.WriteLine("{0} / {1}  / {2} ", TipoLogradouro.Avenida.ToString(), TipoLogradouro.Rua.ToString(), TipoLogradouro.Travessa.ToString());
+                Console.WriteLine("{0} / {1}  / {2} ", EnumTipoLogradouro.Avenida.ToString(), EnumTipoLogradouro.Rua.ToString(), EnumTipoLogradouro.Travessa.ToString());
                 string respostaLogradoura = Console.ReadLine().ToUpper();
                 switch (respostaLogradoura)
                 {
                     case "AVENIDA":
-                        TipoLogradouro = TipoLogradouro.Avenida;
+                        TipoLogradouro = EnumTipoLogradouro.Avenida;
                         tipo = false;
                         break;
                     case "RUA":
-                        TipoLogradouro = TipoLogradouro.Rua;
+                        TipoLogradouro = EnumTipoLogradouro.Rua;
                         tipo = false;
                         break;
                     case "TRAVESSA":
-                        TipoLogradouro = TipoLogradouro.Travessa;
+                        TipoLogradouro = EnumTipoLogradouro.Travessa;
                         tipo = false;
                         break;
                     default:

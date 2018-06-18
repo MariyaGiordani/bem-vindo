@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace bem.vindo
+namespace bem.vindo.Model
 {
     class CadastroGeral
     {
-        public List<Cliente> listaCliente = new List<Cliente>();
+        public static List<Cliente> listaCliente = new List<Cliente>();
 
         public void CadastroCliente()
         {
@@ -25,13 +25,6 @@ namespace bem.vindo
             {
                 clientes.InfoDoCliente();
             }
-        }
-
-        public void sairPrograma()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Você está saindo da programa. Muito obrigada :-)");
-            Environment.Exit(0);
         }
     }
 }

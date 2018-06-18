@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using bem.vindo.Business;
 using System.Text;
 using System.Threading.Tasks;
+using bem.vindo.Utils;
 
-namespace bem.vindo
+namespace bem.vindo.Model
 {
     class Cliente
     {
-        public TipoCliente TipoCliente { get; set; }
+        public EnumTipoCliente TipoCliente { get; set; }
         public Guid CodigoDoCliente { get; set; }
         public String Nome { get; set; }
         public int Idade { get; set; }
-        public EstadoCivil EstadoCivil { get; set; }
-        public Genero Genero { get; set; }
+        public EnumEstadoCivil EstadoCivil { get; set; }
+        public EnumGenero Genero { get; set; }
 
         public List<Endereco> listaEndereco = new List<Endereco>();
 
@@ -30,7 +32,7 @@ namespace bem.vindo
             cliente.TipoDeCliente();
 
             Console.WriteLine("Codigo do cliente: ");
-            Console.WriteLine(cliente.CodigoDoCliente = System.Guid.NewGuid());
+            Console.WriteLine(cliente.CodigoDoCliente = this.CodigoCliente());
             Console.WriteLine("Digite o nome do cliente: ");
             cliente.NomeCliente();
             cliente.IdadeCliente();
@@ -94,24 +96,24 @@ namespace bem.vindo
             bool control = true;
             while (control)
             {
-                Console.WriteLine("{0}  / {1}  / {2} / {3} ", EstadoCivil.Solteiro.ToString(), vindo.EstadoCivil.Casado.ToString(), vindo.EstadoCivil.Viuvo.ToString(), vindo.EstadoCivil.Divorciado.ToString());
+                Console.WriteLine("{0}  / {1}  / {2} / {3} ", EnumEstadoCivil.Solteiro.ToString(), EnumEstadoCivil.Casado.ToString(), EnumEstadoCivil.Viuvo.ToString(), EnumEstadoCivil.Divorciado.ToString());
                 string respostaEstadoCivil = Console.ReadLine().ToUpper();
                 switch (respostaEstadoCivil)
                 {
                     case "SOLTEIRO":
-                        EstadoCivil = EstadoCivil.Solteiro;
+                        EstadoCivil = EnumEstadoCivil.Solteiro;
                         control = false;
                         break;
                     case "CASADO":
-                        EstadoCivil = EstadoCivil.Casado;
+                        EstadoCivil = EnumEstadoCivil.Casado;
                         control = false;
                         break;
                     case "VIUVO":
-                        EstadoCivil = EstadoCivil.Viuvo;
+                        EstadoCivil = EnumEstadoCivil.Viuvo;
                         control = false;
                         break;
                     case "DIVORCIADO":
-                        EstadoCivil = EstadoCivil.Divorciado;
+                        EstadoCivil = EnumEstadoCivil.Divorciado;
                         control = false;
                         break;
                     default:
@@ -121,22 +123,15 @@ namespace bem.vindo
                 }
             }
         }
-       public void CodigoCliente(List<Cliente> cliente)
+       public Guid CodigoCliente()
         {
-            bool test = true;
-            while (test)
+            if (CadastroGeral.listaCliente.Any(c => c.CodigoDoCliente.ToString() == CodigoDoCliente.ToString()))
             {
-                    do
-                    {
-                        if (cliente.FindIndex(x => x.CodigoDoCliente == CodigoDoCliente) != -1)
-                        {
-                            Console.WriteLine("Codigo de cliente já existe!");
-                            Console.WriteLine("Codigo do cliente: ");
-                            Console.WriteLine(this.CodigoDoCliente = System.Guid.NewGuid());
-                        }
-                    } while (cliente.FindIndex(x => x.CodigoDoCliente == this.CodigoDoCliente) != -1);
-                    test = false;
+                Console.WriteLine("Codigo de cliente já existe!");
             }
+            Console.WriteLine("Codigo do cliente: ");
+            return Guid.NewGuid();
+           
         }
 
         public void TipoGeneros()
@@ -144,20 +139,20 @@ namespace bem.vindo
             bool control = true;
             while (control)
             {
-                Console.WriteLine("{0}  / {1}  / {2} ", Genero.Masculino.ToString(), Genero.Feminino.ToString(), Genero.NA.ToString());
+                Console.WriteLine("{0}  / {1}  / {2} ", EnumGenero.Masculino.ToString(), EnumGenero.Feminino.ToString(), EnumGenero.NA.ToString());
                 string respostaGenero = Console.ReadLine().ToUpper();
                 switch (respostaGenero)
                 {
                     case "MASCULINO":
-                        Genero = Genero.Masculino;
+                        Genero = EnumGenero.Masculino;
                         control = false;
                         break;
                     case "FEMININO":
-                        Genero = Genero.Feminino;
+                        Genero = EnumGenero.Feminino;
                         control = false;
                         break;
                     case "NA":
-                        Genero = Genero.NA;
+                        Genero = EnumGenero.NA;
                         control = false;
                         break;
                     default:
@@ -173,16 +168,16 @@ namespace bem.vindo
             bool opcao = true;
             while (opcao)
             {
-                Console.WriteLine("{0}  / {1} ", TipoCliente.Fisica.ToString(), TipoCliente.Juridica.ToString());
+                Console.WriteLine("{0}  / {1} ", EnumTipoCliente.Fisica.ToString(), EnumTipoCliente.Juridica.ToString());
                 string respostaTipoCliente = Console.ReadLine().ToUpper();
                 switch (respostaTipoCliente)
                 {
                     case "FISICA":
-                        TipoCliente = TipoCliente.Fisica;
+                        TipoCliente = EnumTipoCliente.Fisica;
                         opcao = false;
                         break;
                     case "JURIDICA":
-                        TipoCliente = TipoCliente.Juridica;
+                        TipoCliente = EnumTipoCliente.Juridica;
                         opcao = false;
                         break;
                     default:

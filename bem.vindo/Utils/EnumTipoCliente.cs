@@ -1,7 +1,7 @@
 ﻿
-namespace bem.vindo
+namespace bem.vindo.Utils
 {
-   enum TipoCliente
+   public enum EnumTipoCliente
     {
         Fisica = 0, 
         Juridica = 1,
