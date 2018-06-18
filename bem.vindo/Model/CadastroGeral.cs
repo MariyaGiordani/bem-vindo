@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace bem.vindo.Model
 {
-    class CadastroGeral
+    public class CadastroGeral
     {
         public static List<Cliente> listaCliente = new List<Cliente>();
 

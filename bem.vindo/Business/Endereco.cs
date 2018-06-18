@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace bem.vindo.Business
 {
-    class Endereco
+    public class Endereco
     {
         public Guid CodigoDoCliente { get; set; }
         public EnumTipoLogradouro TipoLogradouro { get; set; }

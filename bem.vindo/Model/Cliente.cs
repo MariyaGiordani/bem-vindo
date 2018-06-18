@@ -8,7 +8,7 @@ using bem.vindo.Utils;
 
 namespace bem.vindo.Model
 {
-    class Cliente
+    public class Cliente
     {
         public EnumTipoCliente TipoCliente { get; set; }
         public Guid CodigoDoCliente { get; set; }
