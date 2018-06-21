@@ -5,13 +5,14 @@ using bem.vindo.Business;
 using System.Text;
 using System.Threading.Tasks;
 using bem.vindo.Utils;
+using System.IO;
 
 namespace bem.vindo.Model
 {
     public class Cliente
     {
         public EnumTipoCliente TipoCliente { get; set; }
-        public Guid CodigoDoCliente { get; set; }
+        public int CodigoDoCliente { get; set; }
         public String Nome { get; set; }
         public int Idade { get; set; }
         public EnumEstadoCivil EstadoCivil { get; set; }
@@ -22,7 +23,7 @@ namespace bem.vindo.Model
 
 
 
-        public Cliente CadartrarCliente()
+        public Cliente CadastrarCliente()
         {
             Console.WriteLine("\n======= Bem Vindo! ========");
 
@@ -30,9 +31,8 @@ namespace bem.vindo.Model
 
             Console.WriteLine("Escolha tipo de cliente: ");
             cliente.TipoDeCliente();
-
-            Console.WriteLine("Codigo do cliente: ");
-            Console.WriteLine(cliente.CodigoDoCliente = this.CodigoCliente());
+            cliente.CodigoCliente();
+            //Console.WriteLine(cliente.CodigoDoCliente = this.CodigoCliente());
             Console.WriteLine("Digite o nome do cliente: ");
             cliente.NomeCliente();
             cliente.IdadeCliente();
@@ -52,6 +52,47 @@ namespace bem.vindo.Model
             cliente.InfoDoCliente();
             Console.Clear();
             return cliente;
+        }
+
+        public String RetornarString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine("Informação cliente:");
+            stringBuilder.Append("Tipo Cliente: ");
+            stringBuilder.AppendLine(TipoCliente.ToString());
+            stringBuilder.Append("Codigo do Cliente: ");
+            stringBuilder.AppendLine(CodigoDoCliente.ToString());
+            stringBuilder.Append("Nome do Cliente: ");
+            stringBuilder.AppendLine(Nome);
+            stringBuilder.Append("Idade do Cliente: ");
+            stringBuilder.AppendLine(Idade.ToString());
+            stringBuilder.Append("Estado Civil do Cliente: ");
+            stringBuilder.AppendLine(EstadoCivil.ToString());
+            stringBuilder.Append("Genero do Cliente: ");
+            stringBuilder.AppendLine(Genero.ToString());
+            stringBuilder.AppendLine();
+
+            foreach (var endereco in listaEndereco)
+            {
+                stringBuilder.AppendLine("Endereço do cliente:");
+                stringBuilder.Append("Tipo de logradouro:");
+                stringBuilder.AppendLine(endereco.TipoLogradouro.ToString());
+                stringBuilder.Append("Nome do logradouro:");
+                stringBuilder.AppendLine(endereco.NomeLogradouro);
+                stringBuilder.Append("Complemento:");
+                stringBuilder.AppendLine(endereco.Complemento);
+                stringBuilder.Append("CEP:");
+                stringBuilder.AppendLine(endereco.CEP);
+                stringBuilder.Append("Bairro:");
+                stringBuilder.AppendLine(endereco.Bairro);
+                stringBuilder.Append("Cidade:");
+                stringBuilder.AppendLine(endereco.Cidade);
+                stringBuilder.AppendLine();
+            }
+
+
+            String descricao = stringBuilder.ToString();
+            return descricao;
         }
 
 
@@ -123,94 +164,131 @@ namespace bem.vindo.Model
                 }
             }
         }
-       public Guid CodigoCliente()
+        public void CodigoCliente()
         {
-            if (CadastroGeral.listaCliente.Any(c => c.CodigoDoCliente.ToString() == CodigoDoCliente.ToString()))
+            bool test = true;
+            while (test)
             {
-                Console.WriteLine("Codigo de cliente já existe!");
+                try
+                {
+                    Console.WriteLine("Digite codigo do cliente: ");
+                    this.CodigoDoCliente = Convert.ToInt32(Console.ReadLine().ToString());
+                    procuraNoTxt();
+                    if (CadastroGeral.listaCliente.Any(c => c.CodigoDoCliente.ToString() == CodigoDoCliente.ToString()))
+                    {
+                        Console.WriteLine("Codigo de cliente já existe!");
+                    }
+                    else
+                    {
+                        test = false;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Erro na digitação!");
+
+                }
             }
-            Console.WriteLine("Codigo do cliente: ");
-            return Guid.NewGuid();
-           
+            //return Guid.NewGuid();
+
         }
 
-        public void TipoGeneros()
+        public void procuraNoTxt()
         {
-            bool control = true;
-            while (control)
+            if (File.Exists(@"c:\temp\CADASTROCLIENTE.TXT"))
             {
-                Console.WriteLine("{0}  / {1}  / {2} ", EnumGenero.Masculino.ToString(), EnumGenero.Feminino.ToString(), EnumGenero.NA.ToString());
-                string respostaGenero = Console.ReadLine().ToUpper();
-                switch (respostaGenero)
+                String encontro = string.Empty;
+                String procuraCodigoDoCliente = this.CodigoDoCliente.ToString();
+                using (StreamReader sr = new StreamReader(@"c:\temp\CADASTROCLIENTE.TXT"))
                 {
-                    case "MASCULINO":
-                        Genero = EnumGenero.Masculino;
-                        control = false;
-                        break;
-                    case "FEMININO":
-                        Genero = EnumGenero.Feminino;
-                        control = false;
-                        break;
-                    case "NA":
-                        Genero = EnumGenero.NA;
-                        control = false;
-                        break;
-                    default:
-                        Console.WriteLine("Resposta inválida!");
-                        Console.WriteLine("Genero é obrigatório!");
-                        break;
+                    String input = sr.ReadToEnd();
+                    encontro = "Codigo do Cliente: " + procuraCodigoDoCliente.ToString();
+                    if (input.Contains(encontro))
+                    {
+                        Console.WriteLine("Exista o codigo do cliente " + procuraCodigoDoCliente + " no arquivo TXT");
+                        CodigoCliente();
+                    }
                 }
             }
         }
 
-        public void TipoDeCliente()
+    public void TipoGeneros()
+    {
+        bool control = true;
+        while (control)
         {
-            bool opcao = true;
-            while (opcao)
+            Console.WriteLine("{0}  / {1}  / {2} ", EnumGenero.Masculino.ToString(), EnumGenero.Feminino.ToString(), EnumGenero.NA.ToString());
+            string respostaGenero = Console.ReadLine().ToUpper();
+            switch (respostaGenero)
             {
-                Console.WriteLine("{0}  / {1} ", EnumTipoCliente.Fisica.ToString(), EnumTipoCliente.Juridica.ToString());
-                string respostaTipoCliente = Console.ReadLine().ToUpper();
-                switch (respostaTipoCliente)
-                {
-                    case "FISICA":
-                        TipoCliente = EnumTipoCliente.Fisica;
-                        opcao = false;
-                        break;
-                    case "JURIDICA":
-                        TipoCliente = EnumTipoCliente.Juridica;
-                        opcao = false;
-                        break;
-                    default:
-                        Console.WriteLine("Resposta inválida!");
-                        break;
-                }
+                case "MASCULINO":
+                    Genero = EnumGenero.Masculino;
+                    control = false;
+                    break;
+                case "FEMININO":
+                    Genero = EnumGenero.Feminino;
+                    control = false;
+                    break;
+                case "NA":
+                    Genero = EnumGenero.NA;
+                    control = false;
+                    break;
+                default:
+                    Console.WriteLine("Resposta inválida!");
+                    Console.WriteLine("Genero é obrigatório!");
+                    break;
             }
-        }
-
-
-        public void InfoDoCliente()
-        {
-            int numEndereco = 0;
-            Console.WriteLine("========= INFORMAÇÃO DO CLIENTE: ========");
-            Console.WriteLine("Tipo de cliente:" + this.TipoCliente);
-            Console.WriteLine("Codigo do cliente:" + this.CodigoDoCliente);
-            Console.WriteLine("Nome do cliente:" + this.Nome);
-            Console.WriteLine("Idade do cliente:" + this.Idade);
-            Console.WriteLine("Estado civil do cliente:" + this.EstadoCivil);
-            Console.WriteLine("Genero do cliente:" + this.Genero.ToString());
-
-            foreach (Endereco dadosEndereco in listaEndereco)
-            {
-                numEndereco++;
-                Console.WriteLine("\n========= INFORMAÇÃO DO ENDEREÇO:" + numEndereco + " ========");
-                Console.WriteLine("Codigo do cliente:" + dadosEndereco.CodigoDoCliente);
-                Console.WriteLine("" + dadosEndereco.TipoLogradouro + " : " + dadosEndereco.NomeLogradouro);
-                Console.WriteLine("Complemento:" + dadosEndereco.Complemento);
-                Console.WriteLine("CEP:" + dadosEndereco.CEP);
-                Console.WriteLine("Bairro:" + dadosEndereco.Bairro);
-                Console.WriteLine("Cidade:" + dadosEndereco.Cidade);
-            }
-            Console.ReadLine();
         }
     }
+
+    public void TipoDeCliente()
+    {
+        bool opcao = true;
+        while (opcao)
+        {
+            Console.WriteLine("{0}  / {1} ", EnumTipoCliente.Fisica.ToString(), EnumTipoCliente.Juridica.ToString());
+            string respostaTipoCliente = Console.ReadLine().ToUpper();
+            switch (respostaTipoCliente)
+            {
+                case "FISICA":
+                    TipoCliente = EnumTipoCliente.Fisica;
+                    opcao = false;
+                    break;
+                case "JURIDICA":
+                    TipoCliente = EnumTipoCliente.Juridica;
+                    opcao = false;
+                    break;
+                default:
+                    Console.WriteLine("Resposta inválida!");
+                    break;
+            }
+        }
+    }
+
+
+    public void InfoDoCliente()
+    {
+        int numEndereco = 0;
+        Console.WriteLine("========= INFORMAÇÃO DO CLIENTE: ========");
+        Console.WriteLine("Tipo de cliente:" + this.TipoCliente);
+        Console.WriteLine("Codigo do cliente:" + this.CodigoDoCliente);
+        Console.WriteLine("Nome do cliente:" + this.Nome);
+        Console.WriteLine("Idade do cliente:" + this.Idade);
+        Console.WriteLine("Estado civil do cliente:" + this.EstadoCivil);
+        Console.WriteLine("Genero do cliente:" + this.Genero.ToString());
+
+        foreach (Endereco dadosEndereco in listaEndereco)
+        {
+            numEndereco++;
+            Console.WriteLine("\n========= INFORMAÇÃO DO ENDEREÇO:" + numEndereco + " ========");
+            Console.WriteLine("Codigo do cliente:" + dadosEndereco.CodigoDoCliente);
+            Console.WriteLine("" + dadosEndereco.TipoLogradouro + " : " + dadosEndereco.NomeLogradouro);
+            Console.WriteLine("Complemento:" + dadosEndereco.Complemento);
+            Console.WriteLine("CEP:" + dadosEndereco.CEP);
+            Console.WriteLine("Bairro:" + dadosEndereco.Bairro);
+            Console.WriteLine("Cidade:" + dadosEndereco.Cidade);
+        }
+        Console.ReadLine();
+    }
+}
 }
