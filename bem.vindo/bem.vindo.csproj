@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\CadastroGeral.cs" />
+    <Compile Include="Utils\IUtil.cs" />
+    <Compile Include="Utils\FileUtil.cs" />
     <Compile Include="Utils\EnumEstadoCivil.cs" />
     <Compile Include="Utils\EnumGenero.cs" />
     <Compile Include="Model\Cliente.cs" />

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using bem.vindo.Util;
 
 namespace bem.vindo.Model
 {
@@ -15,6 +16,9 @@ namespace bem.vindo.Model
 
         public void CadastroCliente()
         {
+            FileUtil fileutil = new FileUtil(); 
+
+
             Cliente cliente = new Cliente();
             cliente = cliente.CadastrarCliente();
             listaCliente.Add(cliente);
