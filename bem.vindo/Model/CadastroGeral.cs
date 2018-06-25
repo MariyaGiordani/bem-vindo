@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,16 +17,16 @@ namespace bem.vindo.Model
 
         public void CadastroCliente()
         {
-            FileUtil fileutil = new FileUtil(); 
+            string path = @"c:\temp\CADASTROCLIENTE.TXT";
+            FileUtil fileutil = new FileUtil(path);
 
 
             Cliente cliente = new Cliente();
             cliente = cliente.CadastrarCliente();
             listaCliente.Add(cliente);
 
-            string path = @"c:\temp\CADASTROCLIENTE.TXT";
 
-            using (FileStream fs =new FileStream(path,FileMode.Append,FileAccess.Write))
+            using (FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write))
             {
                 try
                 {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,17 +10,17 @@ namespace bem.vindo.Util
 {
     public class FileUtil //: IUtil
     {
-        public string path { get; set; }
+        private string path { get; set; }
+
         private FileUtil()
         {
-            this.path = path;
         }
 
-        public FileUtil(string path)
+        public FileUtil(string _path)
         {
-            path = @"c:\temp\CADASTROCLIENTE.TXT";
+            path = _path;
         }
-        public void Open(string path)
+        public void Open()
         {
             bool isFileExists = FileExists(path);
             if (!isFileExists)
@@ -52,7 +53,7 @@ namespace bem.vindo.Util
             return fileExists;
         }
 
-        public void Delete(string path)
+        public void Delete()
         {
             bool isFileExists = FileExists(path);
             if (isFileExists)
@@ -73,11 +74,11 @@ namespace bem.vindo.Util
             }
         }
 
-        public void Update(string path)
+        public void Update()
         {
             try
             {
-                Open(path);
+                Open();
                 using (FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write))
                 {
                     StreamWriter sw = new StreamWriter(fs);
@@ -98,4 +99,4 @@ namespace bem.vindo.Util
     }
 }
 
- 
+
