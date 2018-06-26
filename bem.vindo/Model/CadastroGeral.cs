@@ -16,7 +16,8 @@ namespace bem.vindo.Model
     {
         public static List<Cliente> listaCliente = new List<Cliente>();
 
-        FileUtil fileutil = new FileUtil(EnumTipoArquivo.Cliente);
+        FileUtil fileCliente = new FileUtil(EnumTipoArquivo.Cliente);
+        FileUtil fileEndereco = new FileUtil(EnumTipoArquivo.Endereco);
 
         public void CadastroCliente()
         {
@@ -27,12 +28,12 @@ namespace bem.vindo.Model
 
             String newString = cliente.RetornarString();
 
-            fileutil.Update(newString);
+            fileCliente.Update(newString);
 
         }
         public void ListagemClientesTxt()
         {
-            fileutil.Listagem();
+            fileCliente.Listagem();
         }
 
         public void ExibirClientes()

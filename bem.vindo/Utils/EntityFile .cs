@@ -20,8 +20,8 @@ namespace bem.vindo.Utils
                     Path = @"c:\temp\CADASTROCLIENTE.TXT";
                     break;
                 case "Endereco":
-                    throw new NotImplementedException();
-                    //break;
+                    Path = @"c:\temp\CADASTROENDERECO.TXT";
+                    break;
                 default:
                     break;
 
