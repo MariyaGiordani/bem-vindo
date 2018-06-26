@@ -8,6 +8,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using bem.vindo.Util;
+using bem.vindo.Utils;
 
 namespace bem.vindo.Model
 {
@@ -18,7 +19,9 @@ namespace bem.vindo.Model
         public void CadastroCliente()
         {
             string path = @"c:\temp\CADASTROCLIENTE.TXT";
-            FileUtil fileutil = new FileUtil(path);
+            EntityFile entityFile = new EntityFile(EnumTipoArquivo.Cliente);
+            FileUtil fileutil = new FileUtil(entityFile);
+            fileutil.Open();
 
 
             Cliente cliente = new Cliente();

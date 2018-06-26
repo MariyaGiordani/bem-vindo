@@ -5,29 +5,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using bem.vindo.Utils;
 
 namespace bem.vindo.Util
 {
     public class FileUtil //: IUtil
     {
-        private string path { get; set; }
+        private string Path { get; set; }
 
         private FileUtil()
         {
         }
 
-        public FileUtil(string _path)
+        public FileUtil(EntityFile entityFile)
         {
-            path = _path;
+            Path = entityFile.Path;
         }
         public void Open()
         {
-            bool isFileExists = FileExists(path);
+            bool isFileExists = FileExists();
             if (!isFileExists)
             {
                 try
                 {
-                    using (StreamWriter sw = new StreamWriter(path))
+                    using (StreamWriter sw = new StreamWriter(Path))
                     {
                         Console.WriteLine("Arquivo foi criado!");
                     }
@@ -43,9 +44,9 @@ namespace bem.vindo.Util
             //}
         }
 
-        public bool FileExists(string path)
+        public bool FileExists()
         {
-            bool fileExists = File.Exists(path);
+            bool fileExists = File.Exists(Path);
             if (!fileExists)
             {
                 Console.WriteLine("O arquivo não existe!");
@@ -55,13 +56,13 @@ namespace bem.vindo.Util
 
         public void Delete()
         {
-            bool isFileExists = FileExists(path);
+            bool isFileExists = FileExists();
             if (isFileExists)
             {
                 try
                 {
-                    File.Delete(path);
-                    Console.WriteLine("{0} está delitado com sucesso!", path);
+                    File.Delete(Path);
+                    Console.WriteLine("{0} está delitado com sucesso!", Path);
                 }
                 catch (Exception ex)
                 {
@@ -79,7 +80,7 @@ namespace bem.vindo.Util
             try
             {
                 Open();
-                using (FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write))
+                using (FileStream fs = new FileStream(Path, FileMode.Append, FileAccess.Write))
                 {
                     StreamWriter sw = new StreamWriter(fs);
 
