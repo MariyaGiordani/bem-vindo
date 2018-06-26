@@ -12,14 +12,17 @@ namespace bem.vindo.Util
     public class FileUtil //: IUtil
     {
         private string Path { get; set; }
+        private EntityFile EntityFile { get; set; }
+
 
         private FileUtil()
         {
         }
 
-        public FileUtil(EntityFile entityFile)
+        public FileUtil(EnumTipoArquivo tipoArquivo)
         {
-            Path = entityFile.Path;
+            EntityFile = new EntityFile(tipoArquivo);
+            Path = EntityFile.Path;
         }
         public void Open()
         {
@@ -31,6 +34,7 @@ namespace bem.vindo.Util
                     using (StreamWriter sw = new StreamWriter(Path))
                     {
                         Console.WriteLine("Arquivo foi criado!");
+                        sw.Close();
                     }
                 }
                 catch (Exception ex)
@@ -75,26 +79,42 @@ namespace bem.vindo.Util
             }
         }
 
-        public void Update()
+        public void Update(string newString)
         {
             try
             {
                 Open();
                 using (FileStream fs = new FileStream(Path, FileMode.Append, FileAccess.Write))
                 {
-                    StreamWriter sw = new StreamWriter(fs);
-
-                    //sw.Write(newString);
-                    //sw.Close();
-
-
-                    Console.WriteLine("Arquivo salvo!");
-                    Console.ReadKey();
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.WriteLine(newString);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("\nMensagem: " + ex.Message);
+            }
+        }
+
+        public void Listagem()
+        {
+            try
+            {
+                Open();
+                using (StreamReader sr = new StreamReader(Path))
+                {
+                    String linha;
+                    while ((linha = sr.ReadLine()) != null)
+                    {
+                        Console.WriteLine(linha);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }
