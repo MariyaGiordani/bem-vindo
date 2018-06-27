@@ -12,7 +12,7 @@ namespace bem.vindo.Utils
         public string Path { get; set; }
         private EntityFile() { }
         
-        public EntityFile(EnumTipoArquivo tipoArquivo)
+	public EntityFile(EnumTipoArquivo tipoArquivo)
         {
             switch (tipoArquivo.ToString())
             {
