@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
-using bem.vindo.Util;
 using bem.vindo.Business;
+using bem.vindo.Utils;
 
 namespace bem.vindo.Model
 {
@@ -17,15 +17,13 @@ namespace bem.vindo.Model
         public static List<Cliente> listaCliente = new List<Cliente>();
         public static List<Endereco> listaEndereco = new List<Endereco>();
 
+        FileUtil fileCliente = new FileUtil(EnumTipoArquivo.Cliente);
+        FileUtil fileEndereco = new FileUtil(EnumTipoArquivo.Endereco);
+
         public void CadastroCliente()
         {
-            string path = @"c:\temp\CADASTROCLIENTE.TXT";
-            FileUtil fileutil = new FileUtil(path);
-
-
             Cliente cliente = new Cliente();
             cliente = cliente.CadastrarCliente();
-            listaCliente.Add(cliente);
 
             Endereco endereco = new Endereco();
             for (int x = 1; x < 4; x++)
@@ -67,42 +65,16 @@ namespace bem.vindo.Model
                         sw.Write(newStringEndereco);
                         //sw.Close();
                     }
+            listaCliente.Add(cliente);
 
-                    Console.WriteLine("Arquivo salvo!");
-                    Console.ReadKey();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("\nMensagem: " + ex.Message);
+            String newString = cliente.RetornarString();
 
-                }
-            }
+            fileCliente.Update(newString);
+
         }
-
         public void ListagemClientesTxt()
         {
-            if (File.Exists(@"c:\temp\CADASTROCLIENTE.TXT"))
-            {
-                try
-                {
-                    using (StreamReader sr = new StreamReader(@"c:\temp\CADASTROCLIENTE.TXT"))
-                    {
-                        String linha;
-                        while ((linha = sr.ReadLine()) != null)
-                        {
-                            Console.WriteLine(linha);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-            else
-            {
-                Console.WriteLine("Não tem cadsastrados clientes no arquivo!");
-            }
+            fileCliente.Listagem();
         }
 
         public void ExibirClientes()
