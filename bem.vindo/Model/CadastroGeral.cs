@@ -8,6 +8,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using bem.vindo.Business;
+using bem.vindo.Util;
 using bem.vindo.Utils;
 
 namespace bem.vindo.Model
@@ -22,6 +23,7 @@ namespace bem.vindo.Model
 
         public void CadastroCliente()
         {
+            string pathCliente = @"c:\temp\CADASTROCLIENTE.TXT";
             Cliente cliente = new Cliente();
             cliente = cliente.CadastrarCliente();
 
@@ -34,7 +36,7 @@ namespace bem.vindo.Model
             }
 
 
-            using (FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write))
+            using (FileStream fs = new FileStream(pathCliente, FileMode.Append, FileAccess.Write))
             {
                 try
                 {
@@ -65,25 +67,25 @@ namespace bem.vindo.Model
                         sw.Write(newStringEndereco);
                         //sw.Close();
                     }
-            listaCliente.Add(cliente);
+                    listaCliente.Add(cliente);
 
-            String newString = cliente.RetornarString();
+                    String newString = cliente.RetornarString();
 
-            fileCliente.Update(newString);
+                    fileCliente.Update(newString);
 
-        }
+                }
         public void ListagemClientesTxt()
-        {
-            fileCliente.Listagem();
-        }
+                {
+                    fileCliente.Listagem();
+                }
 
-        public void ExibirClientes()
-        {
-            Console.WriteLine("\nLista clientes já cadastrado:");
-            foreach (var clientes in listaCliente)
-            {
-                clientes.InfoDoCliente();
+                public void ExibirClientes()
+                {
+                    Console.WriteLine("\nLista clientes já cadastrado:");
+                    foreach (var clientes in listaCliente)
+                    {
+                        clientes.InfoDoCliente();
+                    }
+                }
             }
         }
-    }
-}
