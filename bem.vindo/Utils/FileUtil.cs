@@ -12,7 +12,7 @@ namespace bem.vindo.Util
     {
         private string path { get; set; }
 
-        private FileUtil()
+        private FileUtil() 
         {
         }
 
@@ -37,10 +37,6 @@ namespace bem.vindo.Util
                     Console.WriteLine("\nFalha na criação do arquivo: " + ex.Message);
                 }
             }
-            //else
-            //{
-            //    Console.WriteLine("Arquivo que você gostaria de criar existe!");
-            //}
         }
 
         public bool FileExists(string path)

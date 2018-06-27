@@ -8,12 +8,14 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using bem.vindo.Util;
+using bem.vindo.Business;
 
 namespace bem.vindo.Model
 {
     public class CadastroGeral
     {
         public static List<Cliente> listaCliente = new List<Cliente>();
+        public static List<Endereco> listaEndereco = new List<Endereco>();
 
         public void CadastroCliente()
         {
@@ -25,15 +27,44 @@ namespace bem.vindo.Model
             cliente = cliente.CadastrarCliente();
             listaCliente.Add(cliente);
 
+            Endereco endereco = new Endereco();
+            for (int x = 1; x < 4; x++)
+            {
+                endereco.CodigoDoCliente = cliente.CodigoDoCliente;
+                endereco = endereco.CadastrarEndereco();
+                listaEndereco.Add(endereco);
+            }
+
 
             using (FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write))
             {
                 try
                 {
-                    String newString = cliente.RetornarString();
+                    String newStringCliente = cliente.RetornarStringCliente();
                     using (StreamWriter sw = new StreamWriter(fs))
                     {
-                        sw.Write(newString);
+                        sw.Write(newStringCliente);
+                        //sw.Close();
+                    }
+
+                    Console.WriteLine("Arquivo salvo!");
+                    Console.ReadKey();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("\nMensagem: " + ex.Message);
+
+                }
+            }
+
+            using (FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write))
+            {
+                try
+                {
+                    String newStringEndereco = endereco.RetornarStringEndereco();
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.Write(newStringEndereco);
                         //sw.Close();
                     }
 
