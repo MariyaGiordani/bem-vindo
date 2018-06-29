@@ -1,9 +1,11 @@
 ﻿using bem.vindo.Utils;
+using bem.vindo.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using bem.vindo.Model;
 
 namespace bem.vindo.Business
 {
@@ -18,23 +20,69 @@ namespace bem.vindo.Business
         public String Bairro { get; set; }
         public String Cidade { get; set; }
 
-        public void CadastrarEndereco()
+        private FileUtil fileutilEndereco = new FileUtil(EnumTipoArquivo.Endereco);
+
+        public Endereco CadastrarEndereco()
         {
+            Endereco endereco = new Endereco();
             Console.WriteLine("Escolha tipo de logradouro:");
-            Logradouro();
-            Console.WriteLine("Digite nome da {0} :", this.TipoLogradouro);
-            NomeDoLogradouro();
+            endereco.Logradouro();
+            Console.WriteLine("Digite nome da {0} :", TipoLogradouro);
+            endereco.NomeDoLogradouro();
             Console.WriteLine("Digite complemento:");
-            ComplementoEndereco();
+            endereco.ComplementoEndereco();
             Console.WriteLine("Digite CEP:");
-            CEPEdndereco();
+            endereco.CEPEdndereco();
             Console.WriteLine("Digite bairro:");
-            BairroEndereco();
+            endereco.BairroEndereco();
             Console.WriteLine("Digite cidade:");
-            CidadeEndereco();
+            endereco.CidadeEndereco();            
             Console.Clear();
+            return endereco;
         }
-    
+
+        public void GravarEndereco(Endereco endereco)
+        {
+            String newStringEndereco = endereco.RetornarStringEndereco();
+            fileutilEndereco.Update(newStringEndereco);
+        }
+
+        public Endereco InfoDoEndereco()
+        {
+            Endereco endereco = new Endereco();
+            Console.WriteLine("\n========= INFORMAÇÃO DO ENDEREÇO: ========");
+            Console.WriteLine("Codigo do cliente:" + this.CodigoDoCliente);
+            Console.WriteLine("" + TipoLogradouro + " : " + NomeLogradouro);
+            Console.WriteLine("Complemento:" + Complemento);
+            Console.WriteLine("CEP:" + CEP);
+            Console.WriteLine("Bairro:" + Bairro);
+            Console.WriteLine("Cidade:" + Cidade);
+            return endereco;
+        }
+
+        public String RetornarStringEndereco()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            //foreach (var endereco in listaEndereco)
+            //{
+            stringBuilder.Append("Codigo do Cliente: ");
+            stringBuilder.AppendLine(CodigoDoCliente.ToString() + "|,|");
+            stringBuilder.AppendLine("Endereço do cliente:  |,| ");
+            stringBuilder.Append("Tipo de logradouro:");
+            stringBuilder.AppendLine(TipoLogradouro.ToString() + "|,|");
+            stringBuilder.Append("Nome do logradouro:");
+            stringBuilder.AppendLine(NomeLogradouro + "|,|");
+            stringBuilder.Append("Complemento:");
+            stringBuilder.AppendLine(Complemento + "|,|");
+            stringBuilder.Append("CEP:");
+            stringBuilder.AppendLine(CEP + "|,|");
+            stringBuilder.Append("Cidade:");
+            stringBuilder.AppendLine(Cidade + "|,|");
+            stringBuilder.Append("||");
+            //}
+            String descricao = stringBuilder.ToString();
+            return descricao;
+        }
 
         public void NomeDoLogradouro()
         {

@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using bem.vindo.Util;
 using bem.vindo.Utils;
+using bem.vindo.Business;
 
 namespace bem.vindo.Model
 {
@@ -16,23 +17,17 @@ namespace bem.vindo.Model
     {
         public static List<Cliente> listaCliente = new List<Cliente>();
 
-        FileUtil fileutil = new FileUtil(EnumTipoArquivo.Cliente);
-
         public void CadastroCliente()
         {
             Cliente cliente = new Cliente();
             cliente = cliente.CadastrarCliente();
 
             listaCliente.Add(cliente);
-
-            String newString = cliente.RetornarString();
-
-            fileutil.Update(newString);
-
         }
         public void ListagemClientesTxt()
         {
-            fileutil.Listagem();
+            FileUtil fileutilCliente = new FileUtil(EnumTipoArquivo.Cliente);
+            fileutilCliente.Listagem();
         }
 
         public void ExibirClientes()

@@ -15,7 +15,7 @@ namespace bem.vindo.Util
         private EntityFile EntityFile { get; set; }
 
 
-        private FileUtil()
+        private FileUtil() 
         {
         }
 
@@ -42,10 +42,6 @@ namespace bem.vindo.Util
                     Console.WriteLine("\nFalha na criação do arquivo: " + ex.Message);
                 }
             }
-            //else
-            //{
-            //    Console.WriteLine("Arquivo que você gostaria de criar existe!");
-            //}
         }
 
         public bool FileExists()
@@ -80,6 +76,7 @@ namespace bem.vindo.Util
         }
 
         public void Update(string newString)
+
         {
             try
             {
