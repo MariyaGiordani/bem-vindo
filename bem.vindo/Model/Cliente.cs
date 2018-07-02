@@ -57,21 +57,23 @@ namespace bem.vindo.Model
 
         public String RetornarStringCliente()
         {
+            String separador = "|";
+            String separadorFinal = "#";
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("Informação cliente: |,|");
+            stringBuilder.AppendLine("Informação cliente: " + separador);
             stringBuilder.Append("Tipo Cliente: ");
-            stringBuilder.AppendLine(TipoCliente.ToString() + "|,|");
+            stringBuilder.AppendLine(TipoCliente.ToString() + separador);
             stringBuilder.Append("Codigo do Cliente: ");
-            stringBuilder.AppendLine(CodigoDoCliente.ToString() + "|,|");
+            stringBuilder.AppendLine(CodigoDoCliente.ToString() + separador);
             stringBuilder.Append("Nome do Cliente: ");
-            stringBuilder.AppendLine(Nome + "|,|");
+            stringBuilder.AppendLine(Nome + separador);
             stringBuilder.Append("Idade do Cliente: ");
-            stringBuilder.AppendLine(Idade.ToString() + "|,|");
+            stringBuilder.AppendLine(Idade.ToString() + separador);
             stringBuilder.Append("Estado Civil do Cliente: ");
-            stringBuilder.AppendLine(EstadoCivil.ToString() + "|,|");
+            stringBuilder.AppendLine(EstadoCivil.ToString() + separador);
             stringBuilder.Append("Genero do Cliente: ");
-            stringBuilder.AppendLine(Genero.ToString() + "|,|");
-            stringBuilder.Append("||");
+            stringBuilder.AppendLine(Genero.ToString() + separador);
+            stringBuilder.Append(separadorFinal);
 
             String descricao = stringBuilder.ToString();
             return descricao;

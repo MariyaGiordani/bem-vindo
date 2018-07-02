@@ -24,6 +24,7 @@ namespace bem.vindo.Model
                     Console.WriteLine("| 1 - Cadastrar novo cliente                    |");
                     Console.WriteLine("| 2 - Exibir lista com nomes de todos clientes  |");
                     Console.WriteLine("| 3 - Listagem do Clientes                      |");
+                    Console.WriteLine("| 4 - Carregar dados do arquivo                 |");
                     Console.WriteLine("| 0 - Sair                                      |");
                     Console.WriteLine(" ===============================================\n");
                     Console.WriteLine("Digite a opção que gostaria?");
@@ -39,6 +40,9 @@ namespace bem.vindo.Model
                             break;
                         case 3:
                             cadastro.ListagemClientesTxt();
+                            break;
+                        case 4:
+                            cadastro.CarregarDadosTxt();
                             break;
                         default:
                             Console.WriteLine("Você está saindo do programa. Muito obrigada :-)");

@@ -62,23 +62,25 @@ namespace bem.vindo.Business
 
         public String RetornarStringEndereco()
         {
+            String separador = "|";
+            String separadorFinal = "#";
             StringBuilder stringBuilder = new StringBuilder();
             //foreach (var endereco in listaEndereco)
             //{
             stringBuilder.Append("Codigo do Cliente: ");
-            stringBuilder.AppendLine(CodigoDoCliente.ToString() + "|,|");
-            stringBuilder.AppendLine("Endereço do cliente:  |,| ");
+            stringBuilder.AppendLine(CodigoDoCliente.ToString() + separador);
+            stringBuilder.AppendLine("Endereço do cliente: " + separador);
             stringBuilder.Append("Tipo de logradouro:");
-            stringBuilder.AppendLine(TipoLogradouro.ToString() + "|,|");
+            stringBuilder.AppendLine(TipoLogradouro.ToString() + separador);
             stringBuilder.Append("Nome do logradouro:");
-            stringBuilder.AppendLine(NomeLogradouro + "|,|");
+            stringBuilder.AppendLine(NomeLogradouro + separador);
             stringBuilder.Append("Complemento:");
-            stringBuilder.AppendLine(Complemento + "|,|");
+            stringBuilder.AppendLine(Complemento + separador);
             stringBuilder.Append("CEP:");
-            stringBuilder.AppendLine(CEP + "|,|");
+            stringBuilder.AppendLine(CEP + separador);
             stringBuilder.Append("Cidade:");
-            stringBuilder.AppendLine(Cidade + "|,|");
-            stringBuilder.Append("||");
+            stringBuilder.AppendLine(Cidade + separador);
+            stringBuilder.Append(separadorFinal);
             //}
             String descricao = stringBuilder.ToString();
             return descricao;

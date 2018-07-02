@@ -114,6 +114,46 @@ namespace bem.vindo.Util
                 Console.WriteLine(ex.Message);
             }
         }
+
+        public void CarregarCliente()
+        {
+
+            char separador = '|';
+            char separadorFinal = '#';
+            TextReader Reader = new StreamReader(Path);
+
+            string[] _Slip = Reader.ReadToEnd().Split(separadorFinal);
+
+            List<string> ListaCliente = new List<string>(_Slip);
+
+            foreach (var item in ListaCliente)
+            {
+                string[] linha = item.Split(separador);
+                foreach (var i in linha)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
+
+        public void CrregarEndereco()
+        {
+            char separador = '|';
+            char separadorFinal = '#';
+            TextReader Reader = new StreamReader(Path);
+
+            string[] _Slip = Reader.ReadToEnd().Split(separadorFinal);
+            List<string> ListaEndereco = new List<string>(_Slip);
+
+            foreach (var item in ListaEndereco)
+            {
+                string[] linha = item.Split(separador);
+                foreach (var i in linha)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
     }
 }
 
