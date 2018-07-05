@@ -41,13 +41,9 @@ namespace bem.vindo.Model
 
         public void CarregarDadosTxt()
         {
-            List<Cliente> listaCliente = new List<Cliente>();
-
-            FileUtil fileutilCliente = new FileUtil(EnumTipoArquivo.Cliente);
-            fileutilCliente.CarregarCliente();
-
-            FileUtil fileutilEndereco = new FileUtil(EnumTipoArquivo.Endereco);
-            fileutilEndereco.CrregarEndereco();
+            Cliente cliente = new Cliente();
+            listaCliente = cliente.LoadFromFile();
+            ExibirClientes();
         }
     }
 }

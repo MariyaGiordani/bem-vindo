@@ -13,7 +13,7 @@ namespace bem.vindo.Model
     public class Cliente
     {
         public EnumTipoCliente TipoCliente { get; set; }
-        public int CodigoDoCliente { get; set; }
+        public Guid CodigoDoCliente { get; set; }
         public String Nome { get; set; }
         public int Idade { get; set; }
         public EnumEstadoCivil EstadoCivil { get; set; }
@@ -44,7 +44,7 @@ namespace bem.vindo.Model
             Console.Clear();
             Endereco endereco = new Endereco();
             for (int x = 1; x < 4; x++)
-            {  
+            {
                 endereco = endereco.CadastrarEndereco();
                 cliente.listaEndereco.Add(endereco);
                 endereco.CodigoDoCliente = cliente.CodigoDoCliente;
@@ -60,20 +60,13 @@ namespace bem.vindo.Model
             String separador = "|";
             String separadorFinal = "#";
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("Informação cliente: " + separador);
-            stringBuilder.Append("Tipo Cliente: ");
-            stringBuilder.AppendLine(TipoCliente.ToString() + separador);
-            stringBuilder.Append("Codigo do Cliente: ");
-            stringBuilder.AppendLine(CodigoDoCliente.ToString() + separador);
-            stringBuilder.Append("Nome do Cliente: ");
-            stringBuilder.AppendLine(Nome + separador);
-            stringBuilder.Append("Idade do Cliente: ");
-            stringBuilder.AppendLine(Idade.ToString() + separador);
-            stringBuilder.Append("Estado Civil do Cliente: ");
-            stringBuilder.AppendLine(EstadoCivil.ToString() + separador);
-            stringBuilder.Append("Genero do Cliente: ");
-            stringBuilder.AppendLine(Genero.ToString() + separador);
-            stringBuilder.Append(separadorFinal);
+            stringBuilder.AppendLine(" " + TipoCliente.ToString() + separador);
+            stringBuilder.AppendLine(" " + CodigoDoCliente.ToString() + separador);
+            stringBuilder.AppendLine(" " + Nome + separador);
+            stringBuilder.AppendLine(" " + Idade.ToString() + separador);
+            stringBuilder.AppendLine(" " + EstadoCivil.ToString() + separador);
+            stringBuilder.AppendLine(" " + Genero.ToString() + separador);
+            stringBuilder.Append(" " + separadorFinal);
 
             String descricao = stringBuilder.ToString();
             return descricao;
@@ -148,15 +141,17 @@ namespace bem.vindo.Model
                 }
             }
         }
-        public void CodigoCliente()
+        public Guid CodigoCliente()
         {
             bool test = true;
             while (test)
             {
                 try
                 {
-                    Console.WriteLine("Digite codigo do cliente: ");
-                    this.CodigoDoCliente = Convert.ToInt32(Console.ReadLine().ToString());
+                    Guid guid =Guid.NewGuid();
+
+                    Console.WriteLine("Codigo do cliente: " + guid);
+                    CodigoDoCliente = guid;
                     procuraNoTxt();
                     if (CadastroGeral.listaCliente.Any(c => c.CodigoDoCliente.ToString() == CodigoDoCliente.ToString()))
                     {
@@ -173,7 +168,7 @@ namespace bem.vindo.Model
 
                 }
             }
-            //return Guid.NewGuid();
+            return Guid.NewGuid();
 
         }
 
@@ -252,7 +247,7 @@ namespace bem.vindo.Model
 
         public void InfoDoCliente()
         {
-            
+
             Console.WriteLine("========= INFORMAÇÃO DO CLIENTE: ========");
             Console.WriteLine("Tipo de cliente:" + this.TipoCliente);
             Console.WriteLine("Codigo do cliente:" + this.CodigoDoCliente);
@@ -265,6 +260,77 @@ namespace bem.vindo.Model
                 dadosEndereco.InfoDoEndereco();
             }
             Console.ReadLine();
+        }
+
+        public List<Cliente> LoadFromFile()
+        {
+            List<Cliente> listaCliente = new List<Cliente>();          
+
+            FileUtil fileutilCliente = new FileUtil(EnumTipoArquivo.Cliente);
+            List<string> temp = fileutilCliente.CarregarFromFile('#');
+            foreach (var item in temp)
+            {
+                List<string> parametros = fileutilCliente.CarregarFromString('|', item);
+
+                Cliente clienteNovo = new Cliente();
+                int count = parametros.Count;
+                if (count >=7 )
+                {
+                    var tipoClinte = parametros[0];
+                    if (tipoClinte.Trim() == "Fisica")
+                    {
+                        clienteNovo.TipoCliente = EnumTipoCliente.Fisica;
+                    }
+                    else
+                    {
+                        clienteNovo.TipoCliente = EnumTipoCliente.Juridica;
+                    }
+
+                    var codigoDoCliente = parametros[1];
+                    clienteNovo.CodigoDoCliente = Guid.Parse(codigoDoCliente);
+                    var nome = parametros[2];
+                    clienteNovo.Nome = nome;
+                    var idade = parametros[3];
+                    clienteNovo.Idade = Convert.ToInt32(idade);
+
+                    var estadoCivil = parametros[4];
+                    if (estadoCivil.Trim() == "Solteiro")
+                    {
+                        clienteNovo.EstadoCivil = EnumEstadoCivil.Solteiro;
+                    }
+                    else if (estadoCivil.Trim() == "Casado")
+                    {
+                        clienteNovo.EstadoCivil = EnumEstadoCivil.Casado;
+                    }
+                    else if (estadoCivil.Trim() == "Viuvo")
+                    {
+                        clienteNovo.EstadoCivil = EnumEstadoCivil.Viuvo;
+                    }
+                    else
+                    {
+                        clienteNovo.EstadoCivil = EnumEstadoCivil.Divorciado;
+                    }
+
+                    var genero = parametros[5];
+                    if (genero.Trim() == "Feminino")
+                    {
+                        clienteNovo.Genero = EnumGenero.Feminino;
+                    }
+                    else if (genero.Trim() == "Masculino")
+                    {
+                        clienteNovo.Genero = EnumGenero.Masculino;
+                    }
+                    else
+                    {
+                        clienteNovo.Genero = EnumGenero.NA;
+                    }
+                    Endereco endereco = new Endereco();
+                    clienteNovo.listaEndereco = endereco.LoadFromFile(clienteNovo.CodigoDoCliente);
+
+                    listaCliente.Add(clienteNovo);
+                }
+            }
+            return listaCliente;
         }
     }
 }

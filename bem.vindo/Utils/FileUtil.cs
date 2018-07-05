@@ -115,44 +115,25 @@ namespace bem.vindo.Util
             }
         }
 
-        public void CarregarCliente()
+        public List<string> CarregarFromFile(char separador)
         {
-
-            char separador = '|';
-            char separadorFinal = '#';
+            
             TextReader Reader = new StreamReader(Path);
 
-            string[] _Slip = Reader.ReadToEnd().Split(separadorFinal);
+            string[] _Slip = Reader.ReadToEnd().Split(separador);
 
-            List<string> ListaCliente = new List<string>(_Slip);
+            List<string> Lista = new List<string>(_Slip);
 
-            foreach (var item in ListaCliente)
-            {
-                string[] linha = item.Split(separador);
-                foreach (var i in linha)
-                {
-                    Console.WriteLine(i);
-                }
-            }
+            return Lista;
         }
 
-        public void CrregarEndereco()
+        public List<string> CarregarFromString(char separador, string linestring)
         {
-            char separador = '|';
-            char separadorFinal = '#';
-            TextReader Reader = new StreamReader(Path);
+            string[] _Slip = linestring.Split(separador);
 
-            string[] _Slip = Reader.ReadToEnd().Split(separadorFinal);
-            List<string> ListaEndereco = new List<string>(_Slip);
+            List<string> Lista = new List<string>(_Slip);
 
-            foreach (var item in ListaEndereco)
-            {
-                string[] linha = item.Split(separador);
-                foreach (var i in linha)
-                {
-                    Console.WriteLine(i);
-                }
-            }
+            return Lista;
         }
     }
 }

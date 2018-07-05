@@ -6,13 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using bem.vindo.Model;
+using System.IO;
 
 namespace bem.vindo.Business
 {
     [Serializable]
     public class Endereco
     {
-        public int CodigoDoCliente { get; set; }
+        public Guid IdAddress { get; set; }
+        public Guid CodigoDoCliente { get; set; }
         public EnumTipoLogradouro TipoLogradouro { get; set; }
         public String NomeLogradouro { get; set; }
         public String Complemento { get; set; }
@@ -25,6 +27,7 @@ namespace bem.vindo.Business
         public Endereco CadastrarEndereco()
         {
             Endereco endereco = new Endereco();
+            endereco.IdOfAddress();
             Console.WriteLine("Escolha tipo de logradouro:");
             endereco.Logradouro();
             Console.WriteLine("Digite nome da {0} :", TipoLogradouro);
@@ -51,12 +54,13 @@ namespace bem.vindo.Business
         {
             Endereco endereco = new Endereco();
             Console.WriteLine("\n========= INFORMAÇÃO DO ENDEREÇO: ========");
+            Console.WriteLine("Id do endereço:" + this.IdAddress);
             Console.WriteLine("Codigo do cliente:" + this.CodigoDoCliente);
-            Console.WriteLine("" + TipoLogradouro + " : " + NomeLogradouro);
-            Console.WriteLine("Complemento:" + Complemento);
-            Console.WriteLine("CEP:" + CEP);
-            Console.WriteLine("Bairro:" + Bairro);
-            Console.WriteLine("Cidade:" + Cidade);
+            Console.WriteLine("" + this.TipoLogradouro + " : " + this.NomeLogradouro);
+            Console.WriteLine("Complemento:" + this.Complemento);
+            Console.WriteLine("CEP:" + this.CEP);
+            Console.WriteLine("Bairro:" + this.Bairro);
+            Console.WriteLine("Cidade:" + this.Cidade);
             return endereco;
         }
 
@@ -67,23 +71,61 @@ namespace bem.vindo.Business
             StringBuilder stringBuilder = new StringBuilder();
             //foreach (var endereco in listaEndereco)
             //{
-            stringBuilder.Append("Codigo do Cliente: ");
-            stringBuilder.AppendLine(CodigoDoCliente.ToString() + separador);
-            stringBuilder.AppendLine("Endereço do cliente: " + separador);
-            stringBuilder.Append("Tipo de logradouro:");
-            stringBuilder.AppendLine(TipoLogradouro.ToString() + separador);
-            stringBuilder.Append("Nome do logradouro:");
-            stringBuilder.AppendLine(NomeLogradouro + separador);
-            stringBuilder.Append("Complemento:");
-            stringBuilder.AppendLine(Complemento + separador);
-            stringBuilder.Append("CEP:");
-            stringBuilder.AppendLine(CEP + separador);
-            stringBuilder.Append("Cidade:");
-            stringBuilder.AppendLine(Cidade + separador);
-            stringBuilder.Append(separadorFinal);
+            stringBuilder.AppendLine(" " + IdAddress.ToString() + separador);
+            stringBuilder.AppendLine(" " + CodigoDoCliente.ToString() + separador);
+            stringBuilder.AppendLine(" " + TipoLogradouro.ToString() + separador);
+            stringBuilder.AppendLine(" " + NomeLogradouro + separador);
+            stringBuilder.AppendLine(" " + Complemento + separador);
+            stringBuilder.AppendLine(" " + CEP + separador);
+            stringBuilder.AppendLine(" " + Bairro + separador);
+            stringBuilder.AppendLine(" " + Cidade + separador);
+            stringBuilder.Append(" " + separadorFinal);
             //}
             String descricao = stringBuilder.ToString();
             return descricao;
+        }
+
+        public Guid IdOfAddress()
+        {
+            bool test = true;
+            while (test)
+            {
+                try
+                {
+                    Guid guid = Guid.NewGuid();
+
+                    Console.WriteLine("Id do endereço: " + guid);
+                    IdAddress = guid;
+                    procuraNoTxt();
+                        test = false;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Erro na digitação!");
+
+                }
+            }
+            return Guid.NewGuid();
+
+        }
+
+        public void procuraNoTxt()
+        {
+            if (File.Exists(@"c:\temp\CADASTROENDERECO.TXT"))
+            {
+                String encontro = string.Empty;
+                String procuraCodigoDoCliente = this.CodigoDoCliente.ToString();
+                using (StreamReader sr = new StreamReader(@"c:\temp\CADASTROENDERECO.TXT"))
+                {
+                    String input = sr.ReadToEnd();
+                    encontro = "Id do endereço: " + procuraCodigoDoCliente.ToString();
+                    if (input.Contains(encontro))
+                    {
+                        Console.WriteLine("Exista o Id do endereço" + procuraCodigoDoCliente + " no arquivo TXT");
+                        IdOfAddress();
+                    }
+                }
+            }
         }
 
         public void NomeDoLogradouro()
@@ -187,5 +229,69 @@ namespace bem.vindo.Business
             }
         }
 
+        public List<Endereco> LoadFromFile(Guid clientCode)
+        {
+            var list = LoadFromFile();
+            var returnAddress = list.Where(c => c.CodigoDoCliente == clientCode).ToList();
+           
+            return returnAddress;
+        }
+
+        public List<Endereco> LoadFromFile()
+        {
+            List<Endereco> listaEndereco = new List<Endereco>();
+
+            FileUtil fileutilEndereco = new FileUtil(EnumTipoArquivo.Endereco);
+
+            List<string> tempEndereco = fileutilEndereco.CarregarFromFile('#');
+
+            foreach (var item in tempEndereco)
+            {
+                List<string> parametrosEndereco = fileutilEndereco.CarregarFromString('|', item);
+
+                Endereco enderecoNovo = new Endereco();
+                int count = parametrosEndereco.Count;
+                if (count >= 8 )
+                {
+                    var idAddress = parametrosEndereco[0];
+                    enderecoNovo.IdAddress = Guid.Parse(idAddress);
+
+                    var codigoDoCliente = parametrosEndereco[1];
+                    enderecoNovo.CodigoDoCliente = Guid.Parse(codigoDoCliente);
+
+                    var tipoLogradouro = parametrosEndereco[2];
+                    if (tipoLogradouro.Trim() == "Avenida")
+                    {
+                        enderecoNovo.TipoLogradouro = EnumTipoLogradouro.Avenida;
+                    }
+                    else if (tipoLogradouro.Trim() == "Rua")
+                    {
+                        enderecoNovo.TipoLogradouro = EnumTipoLogradouro.Rua;
+                    }
+                    else if (tipoLogradouro.Trim() == "Travessa")
+                    {
+                        enderecoNovo.TipoLogradouro = EnumTipoLogradouro.Travessa;
+                    }
+
+                    var nomeLogradouro = parametrosEndereco[3];
+                    enderecoNovo.NomeLogradouro = nomeLogradouro;
+
+                    var complemento = parametrosEndereco[4];
+                    enderecoNovo.Complemento = complemento;
+
+                    var cep = parametrosEndereco[5];
+                    enderecoNovo.CEP = cep;
+
+                    var bairro = parametrosEndereco[6];
+                    enderecoNovo.Bairro = bairro;
+
+                    var cidade = parametrosEndereco[7];
+                    enderecoNovo.Cidade = cidade;
+                }
+
+                listaEndereco.Add(enderecoNovo);
+            }
+            return listaEndereco;
+        }
     }
 }
