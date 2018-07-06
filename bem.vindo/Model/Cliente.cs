@@ -148,7 +148,7 @@ namespace bem.vindo.Model
             {
                 try
                 {
-                    Guid guid =Guid.NewGuid();
+                    Guid guid = Guid.NewGuid();
 
                     Console.WriteLine("Codigo do cliente: " + guid);
                     CodigoDoCliente = guid;
@@ -262,71 +262,92 @@ namespace bem.vindo.Model
             Console.ReadLine();
         }
 
-        public List<Cliente> LoadFromFile()
+
+        public void GetbyCode(string clientCode)
         {
-            List<Cliente> listaCliente = new List<Cliente>();          
+            Guid code = Guid.Parse(clientCode);
+            List<Cliente> clientlist = LoadFromFile(true,false);
+            var filterClient = clientlist.FirstOrDefault(c => c.CodigoDoCliente == code);
+            filterClient.InfoDoCliente();
+        }
+
+        /// <summary>
+        ///  Carrega Arquivo de cliente
+        /// </summary>
+        /// <param name="loadclient">boolean</param>
+        /// <param name="loadendereco">boolean</param>
+        /// <returns>Retorna lisat de clientes</returns>
+        public List<Cliente> LoadFromFile(bool loadclient, bool loadendereco)
+        { 
+            List<Cliente> listaCliente = new List<Cliente>();
 
             FileUtil fileutilCliente = new FileUtil(EnumTipoArquivo.Cliente);
             List<string> temp = fileutilCliente.CarregarFromFile('#');
             foreach (var item in temp)
             {
+
                 List<string> parametros = fileutilCliente.CarregarFromString('|', item);
 
                 Cliente clienteNovo = new Cliente();
-                int count = parametros.Count;
-                if (count >=7 )
+                if (loadclient)
                 {
-                    var tipoClinte = parametros[0];
-                    if (tipoClinte.Trim() == "Fisica")
+                    int count = parametros.Count;
+                    if (count >= 7)
                     {
-                        clienteNovo.TipoCliente = EnumTipoCliente.Fisica;
-                    }
-                    else
-                    {
-                        clienteNovo.TipoCliente = EnumTipoCliente.Juridica;
-                    }
+                        var tipoClinte = parametros[0];
+                        if (tipoClinte.Trim() == "Fisica")
+                        {
+                            clienteNovo.TipoCliente = EnumTipoCliente.Fisica;
+                        }
+                        else
+                        {
+                            clienteNovo.TipoCliente = EnumTipoCliente.Juridica;
+                        }
 
-                    var codigoDoCliente = parametros[1];
-                    clienteNovo.CodigoDoCliente = Guid.Parse(codigoDoCliente);
-                    var nome = parametros[2];
-                    clienteNovo.Nome = nome;
-                    var idade = parametros[3];
-                    clienteNovo.Idade = Convert.ToInt32(idade);
+                        var codigoDoCliente = parametros[1];
+                        clienteNovo.CodigoDoCliente = Guid.Parse(codigoDoCliente);
+                        var nome = parametros[2];
+                        clienteNovo.Nome = nome;
+                        var idade = parametros[3];
+                        clienteNovo.Idade = Convert.ToInt32(idade);
 
-                    var estadoCivil = parametros[4];
-                    if (estadoCivil.Trim() == "Solteiro")
-                    {
-                        clienteNovo.EstadoCivil = EnumEstadoCivil.Solteiro;
-                    }
-                    else if (estadoCivil.Trim() == "Casado")
-                    {
-                        clienteNovo.EstadoCivil = EnumEstadoCivil.Casado;
-                    }
-                    else if (estadoCivil.Trim() == "Viuvo")
-                    {
-                        clienteNovo.EstadoCivil = EnumEstadoCivil.Viuvo;
-                    }
-                    else
-                    {
-                        clienteNovo.EstadoCivil = EnumEstadoCivil.Divorciado;
-                    }
+                        var estadoCivil = parametros[4];
+                        if (estadoCivil.Trim() == "Solteiro")
+                        {
+                            clienteNovo.EstadoCivil = EnumEstadoCivil.Solteiro;
+                        }
+                        else if (estadoCivil.Trim() == "Casado")
+                        {
+                            clienteNovo.EstadoCivil = EnumEstadoCivil.Casado;
+                        }
+                        else if (estadoCivil.Trim() == "Viuvo")
+                        {
+                            clienteNovo.EstadoCivil = EnumEstadoCivil.Viuvo;
+                        }
+                        else
+                        {
+                            clienteNovo.EstadoCivil = EnumEstadoCivil.Divorciado;
+                        }
 
-                    var genero = parametros[5];
-                    if (genero.Trim() == "Feminino")
-                    {
-                        clienteNovo.Genero = EnumGenero.Feminino;
+                        var genero = parametros[5];
+                        if (genero.Trim() == "Feminino")
+                        {
+                            clienteNovo.Genero = EnumGenero.Feminino;
+                        }
+                        else if (genero.Trim() == "Masculino")
+                        {
+                            clienteNovo.Genero = EnumGenero.Masculino;
+                        }
+                        else
+                        {
+                            clienteNovo.Genero = EnumGenero.NA;
+                        }
                     }
-                    else if (genero.Trim() == "Masculino")
-                    {
-                        clienteNovo.Genero = EnumGenero.Masculino;
+                   if(loadendereco)
+                    { 
+                        Endereco endereco = new Endereco();
+                        clienteNovo.listaEndereco = endereco.LoadFromFile(clienteNovo.CodigoDoCliente);
                     }
-                    else
-                    {
-                        clienteNovo.Genero = EnumGenero.NA;
-                    }
-                    Endereco endereco = new Endereco();
-                    clienteNovo.listaEndereco = endereco.LoadFromFile(clienteNovo.CodigoDoCliente);
-
                     listaCliente.Add(clienteNovo);
                 }
             }

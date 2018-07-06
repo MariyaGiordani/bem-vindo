@@ -22,8 +22,8 @@ namespace bem.vindo.Model
                     int opcao;
                     Console.WriteLine(" ============ CADASTRO DO CLIENTE ==============");
                     Console.WriteLine("| 1 - Cadastrar novo cliente                    |");
-                    Console.WriteLine("| 2 - Exibir lista com nomes de todos clientes  |");
-                    Console.WriteLine("| 3 - Listagem do Clientes                      |");
+                    Console.WriteLine("| 2 - Listager cliente por ID                   |");
+                    Console.WriteLine("| 3 - Listager endereco por ID                  |");
                     Console.WriteLine("| 4 - Carregar dados do arquivo                 |");
                     Console.WriteLine("| 0 - Sair                                      |");
                     Console.WriteLine(" ===============================================\n");
@@ -36,10 +36,12 @@ namespace bem.vindo.Model
                            cadastro.CadastroCliente();
                             break;
                         case 2:
-                            cadastro.ExibirClientes();
+                            var code = Console.ReadLine();
+                            cadastro.ListagemClienteID(code);
                             break;
                         case 3:
-                            cadastro.ListagemClientesTxt();
+                            var id = Console.ReadLine();
+                            cadastro.ListagemEnderecoID(id);
                             break;
                         case 4:
                             cadastro.CarregarDadosTxt();

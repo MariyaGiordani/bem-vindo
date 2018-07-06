@@ -24,10 +24,16 @@ namespace bem.vindo.Model
 
             listaCliente.Add(cliente);
         }
-        public void ListagemClientesTxt()
+        public void ListagemClienteID(string code)
         {
-            FileUtil fileutilCliente = new FileUtil(EnumTipoArquivo.Cliente);
-            fileutilCliente.Listagem();
+            Cliente cliente = new Cliente();
+            cliente.GetbyCode(code);
+        }
+
+        public void ListagemEnderecoID(string id)
+        {
+            Endereco endereco = new Endereco();
+            endereco.GetbyId(id);
         }
 
         public void ExibirClientes()
@@ -42,7 +48,7 @@ namespace bem.vindo.Model
         public void CarregarDadosTxt()
         {
             Cliente cliente = new Cliente();
-            listaCliente = cliente.LoadFromFile();
+            listaCliente = cliente.LoadFromFile(true, true);
             ExibirClientes();
         }
     }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using bem.vindo.Utils;
+using bem.vindo.Model;
 
 namespace bem.vindo.Util
 {
@@ -15,7 +16,7 @@ namespace bem.vindo.Util
         private EntityFile EntityFile { get; set; }
 
 
-        private FileUtil() 
+        private FileUtil()
         {
         }
 
@@ -93,31 +94,11 @@ namespace bem.vindo.Util
             {
                 Console.WriteLine("\nMensagem: " + ex.Message);
             }
-        }
-
-        public void Listagem()
-        {
-            try
-            {
-                Open();
-                using (StreamReader sr = new StreamReader(Path))
-                {
-                    String linha;
-                    while ((linha = sr.ReadLine()) != null)
-                    {
-                        Console.WriteLine(linha);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+        }      
 
         public List<string> CarregarFromFile(char separador)
         {
-            
+
             TextReader Reader = new StreamReader(Path);
 
             string[] _Slip = Reader.ReadToEnd().Split(separador);

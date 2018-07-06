@@ -237,6 +237,14 @@ namespace bem.vindo.Business
             return returnAddress;
         }
 
+        public void GetbyId(string addressid)
+        {
+            Guid id = Guid.Parse(addressid);
+            List<Endereco> addresslist = LoadFromFile();
+            var filterClient = addresslist.FirstOrDefault(c => c.IdAddress == id);
+            filterClient.InfoDoEndereco();
+        }
+
         public List<Endereco> LoadFromFile()
         {
             List<Endereco> listaEndereco = new List<Endereco>();
