@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using bem.vindo.Utils;
 using bem.vindo.Model;
+using Newtonsoft.Json;
 
 namespace bem.vindo.Util
 {
@@ -25,7 +26,7 @@ namespace bem.vindo.Util
             EntityFile = new EntityFile(tipoArquivo);
             Path = EntityFile.Path;
         }
-        public void Open()
+        public void Open(bool removeFile = false)
         {
             bool isFileExists = FileExists();
             if (!isFileExists)
@@ -41,6 +42,15 @@ namespace bem.vindo.Util
                 catch (Exception ex)
                 {
                     Console.WriteLine("\nFalha na criação do arquivo: " + ex.Message);
+                }
+            }
+            else
+            {
+                File.Delete(Path);
+                using (StreamWriter sw = new StreamWriter(Path))
+                {
+                    Console.WriteLine("Arquivo foi criado!");
+                    sw.Close();
                 }
             }
         }
@@ -76,17 +86,17 @@ namespace bem.vindo.Util
             }
         }
 
-        public void Update(string newString)
+        public void Update(string newString, bool removeFile = false)
 
         {
             try
             {
-                Open();
+                Open(removeFile);
                 using (FileStream fs = new FileStream(Path, FileMode.Append, FileAccess.Write))
                 {
                     using (StreamWriter sw = new StreamWriter(fs))
                     {
-                        sw.WriteLine(newString);
+                       sw.WriteLine(newString);                       
                     }
                 }
             }
@@ -107,7 +117,20 @@ namespace bem.vindo.Util
 
             return Lista;
         }
-
+        public string CarregarFromFile()
+        {
+            if (FileExists())
+            {
+                using (TextReader Reader = new StreamReader(Path))
+                {
+                    return Reader.ReadToEnd();
+                }
+            }
+            else
+            {
+                return "";
+            }
+        }
         public List<string> CarregarFromString(char separador, string linestring)
         {
             string[] _Slip = linestring.Split(separador);

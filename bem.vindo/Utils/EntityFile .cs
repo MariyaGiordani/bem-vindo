@@ -17,10 +17,10 @@ namespace bem.vindo.Utils
             switch (tipoArquivo.ToString())
             {
                 case "Cliente":
-                    Path = @"c:\temp\CADASTROCLIENTE.TXT";
+                    Path = @"c:\temp\CADASTROCLIENTE.json";
                     break;
                 case "Endereco":
-                    Path = @"c:\temp\CADASTROENDERECO.TXT";
+                    Path = @"c:\temp\CADASTROENDERECO.json";
                     break;
                 default:
                     break;

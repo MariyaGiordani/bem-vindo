@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using bem.vindo.Utils;
 using bem.vindo.Util;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace bem.vindo.Model
 {
@@ -31,7 +32,6 @@ namespace bem.vindo.Model
             Console.WriteLine("Escolha tipo de cliente: ");
             cliente.TipoDeCliente();
             cliente.CodigoCliente();
-            //Console.WriteLine(cliente.CodigoDoCliente = this.CodigoCliente());
             Console.WriteLine("Digite o nome do cliente: ");
             cliente.NomeCliente();
             cliente.IdadeCliente();
@@ -39,40 +39,30 @@ namespace bem.vindo.Model
             cliente.EstadoCivilCliente();
             Console.WriteLine("Digite o genero do cliente: ");
             cliente.TipoGeneros();
-            String newStringCliente = cliente.RetornarStringCliente();
-            fileutilCliente.Update(newStringCliente);
+            List<Cliente> jsonFileCliente = new List<Cliente>();
+            string fullFile = fileutilCliente.CarregarFromFile();
+            jsonFileCliente = JsonConvert.DeserializeObject<List<Cliente>>(fullFile);
+            if(jsonFileCliente == null)
+            {
+                jsonFileCliente = new List<Cliente>();
+            }
+            jsonFileCliente.Add(cliente);
+            String newStringCliente = JsonConvert.SerializeObject(jsonFileCliente);
+            fileutilCliente.Update(newStringCliente, true);
             Console.Clear();
             Endereco endereco = new Endereco();
             for (int x = 1; x < 4; x++)
-            {
-                endereco = endereco.CadastrarEndereco();
+            {                
+                endereco = endereco.CadastrarEndereco(cliente.CodigoDoCliente);
+               
                 cliente.listaEndereco.Add(endereco);
-                endereco.CodigoDoCliente = cliente.CodigoDoCliente;
-                endereco.GravarEndereco(endereco);
             }
             cliente.InfoDoCliente();
             Console.Clear();
             return cliente;
         }
 
-        public String RetornarStringCliente()
-        {
-            String separador = "|";
-            String separadorFinal = "#";
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine(" " + TipoCliente.ToString() + separador);
-            stringBuilder.AppendLine(" " + CodigoDoCliente.ToString() + separador);
-            stringBuilder.AppendLine(" " + Nome + separador);
-            stringBuilder.AppendLine(" " + Idade.ToString() + separador);
-            stringBuilder.AppendLine(" " + EstadoCivil.ToString() + separador);
-            stringBuilder.AppendLine(" " + Genero.ToString() + separador);
-            stringBuilder.Append(" " + separadorFinal);
-
-            String descricao = stringBuilder.ToString();
-            return descricao;
-        }
-
-
+  
         public void NomeCliente()
         {
             this.Nome = Console.ReadLine();
@@ -247,7 +237,6 @@ namespace bem.vindo.Model
 
         public void InfoDoCliente()
         {
-
             Console.WriteLine("========= INFORMAÇÃO DO CLIENTE: ========");
             Console.WriteLine("Tipo de cliente:" + this.TipoCliente);
             Console.WriteLine("Codigo do cliente:" + this.CodigoDoCliente);
@@ -259,99 +248,34 @@ namespace bem.vindo.Model
             {
                 dadosEndereco.InfoDoEndereco();
             }
-            Console.ReadLine();
+            Console.Read();
         }
 
 
         public void GetbyCode(string clientCode)
         {
             Guid code = Guid.Parse(clientCode);
-            List<Cliente> clientlist = LoadFromFile(true,false);
-            var filterClient = clientlist.FirstOrDefault(c => c.CodigoDoCliente == code);
+            List<Cliente> jsonFileCliente = new List<Cliente>();
+            string fullFile = fileutilCliente.CarregarFromFile();
+            jsonFileCliente = JsonConvert.DeserializeObject<List<Cliente>>(fullFile);
+            var filterClient = jsonFileCliente.FirstOrDefault(c => c.CodigoDoCliente == code);
             filterClient.InfoDoCliente();
         }
 
-        /// <summary>
-        ///  Carrega Arquivo de cliente
-        /// </summary>
-        /// <param name="loadclient">boolean</param>
-        /// <param name="loadendereco">boolean</param>
-        /// <returns>Retorna lisat de clientes</returns>
-        public List<Cliente> LoadFromFile(bool loadclient, bool loadendereco)
-        { 
-            List<Cliente> listaCliente = new List<Cliente>();
-
-            FileUtil fileutilCliente = new FileUtil(EnumTipoArquivo.Cliente);
-            List<string> temp = fileutilCliente.CarregarFromFile('#');
-            foreach (var item in temp)
+        public List<Cliente> LoadFromFile()
+        {
+            List<Cliente> jsonFileCliente = new List<Cliente>();
+            string fullFile = fileutilCliente.CarregarFromFile();
+            jsonFileCliente = JsonConvert.DeserializeObject<List<Cliente>>(fullFile);
+            foreach (var item in jsonFileCliente)
             {
+                item.InfoDoCliente();
+                var code = item.CodigoDoCliente;
+                Endereco endereco = new Endereco();
+                endereco.GetbyCode(code.ToString());
 
-                List<string> parametros = fileutilCliente.CarregarFromString('|', item);
-
-                Cliente clienteNovo = new Cliente();
-                if (loadclient)
-                {
-                    int count = parametros.Count;
-                    if (count >= 7)
-                    {
-                        var tipoClinte = parametros[0];
-                        if (tipoClinte.Trim() == "Fisica")
-                        {
-                            clienteNovo.TipoCliente = EnumTipoCliente.Fisica;
-                        }
-                        else
-                        {
-                            clienteNovo.TipoCliente = EnumTipoCliente.Juridica;
-                        }
-
-                        var codigoDoCliente = parametros[1];
-                        clienteNovo.CodigoDoCliente = Guid.Parse(codigoDoCliente);
-                        var nome = parametros[2];
-                        clienteNovo.Nome = nome;
-                        var idade = parametros[3];
-                        clienteNovo.Idade = Convert.ToInt32(idade);
-
-                        var estadoCivil = parametros[4];
-                        if (estadoCivil.Trim() == "Solteiro")
-                        {
-                            clienteNovo.EstadoCivil = EnumEstadoCivil.Solteiro;
-                        }
-                        else if (estadoCivil.Trim() == "Casado")
-                        {
-                            clienteNovo.EstadoCivil = EnumEstadoCivil.Casado;
-                        }
-                        else if (estadoCivil.Trim() == "Viuvo")
-                        {
-                            clienteNovo.EstadoCivil = EnumEstadoCivil.Viuvo;
-                        }
-                        else
-                        {
-                            clienteNovo.EstadoCivil = EnumEstadoCivil.Divorciado;
-                        }
-
-                        var genero = parametros[5];
-                        if (genero.Trim() == "Feminino")
-                        {
-                            clienteNovo.Genero = EnumGenero.Feminino;
-                        }
-                        else if (genero.Trim() == "Masculino")
-                        {
-                            clienteNovo.Genero = EnumGenero.Masculino;
-                        }
-                        else
-                        {
-                            clienteNovo.Genero = EnumGenero.NA;
-                        }
-                    }
-                   if(loadendereco)
-                    { 
-                        Endereco endereco = new Endereco();
-                        clienteNovo.listaEndereco = endereco.LoadFromFile(clienteNovo.CodigoDoCliente);
-                    }
-                    listaCliente.Add(clienteNovo);
-                }
             }
-            return listaCliente;
+            return jsonFileCliente;
         }
     }
 }

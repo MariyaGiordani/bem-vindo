@@ -36,20 +36,11 @@ namespace bem.vindo.Model
             endereco.GetbyId(id);
         }
 
-        public void ExibirClientes()
-        {
-            Console.WriteLine("\nLista clientes já cadastrado:");
-            foreach (var clientes in listaCliente)
-            {
-                clientes.InfoDoCliente();
-            }
-        }
 
         public void CarregarDadosTxt()
         {
             Cliente cliente = new Cliente();
-            listaCliente = cliente.LoadFromFile(true, true);
-            ExibirClientes();
+            listaCliente = cliente.LoadFromFile();
         }
     }
 }

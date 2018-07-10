@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using bem.vindo.Model;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace bem.vindo.Business
 {
@@ -24,10 +25,12 @@ namespace bem.vindo.Business
 
         private FileUtil fileutilEndereco = new FileUtil(EnumTipoArquivo.Endereco);
 
-        public Endereco CadastrarEndereco()
+        public Endereco CadastrarEndereco(Guid codigoCliente)
         {
             Endereco endereco = new Endereco();
             endereco.IdOfAddress();
+            endereco.CodigoDoCliente = codigoCliente;
+            Console.WriteLine("Codigo do cliente: " + codigoCliente);
             Console.WriteLine("Escolha tipo de logradouro:");
             endereco.Logradouro();
             Console.WriteLine("Digite nome da {0} :", TipoLogradouro);
@@ -39,16 +42,21 @@ namespace bem.vindo.Business
             Console.WriteLine("Digite bairro:");
             endereco.BairroEndereco();
             Console.WriteLine("Digite cidade:");
-            endereco.CidadeEndereco();            
+            endereco.CidadeEndereco();
+            List<Endereco> jsonFileEndereco = new List<Endereco>();
+            string fullFile = fileutilEndereco.CarregarFromFile();
+            jsonFileEndereco = JsonConvert.DeserializeObject<List<Endereco>>(fullFile);
+            if (jsonFileEndereco == null)
+            {
+                jsonFileEndereco = new List<Endereco>();
+            }
+            jsonFileEndereco.Add(endereco);
+            String newStringCliente = JsonConvert.SerializeObject(jsonFileEndereco);
+            fileutilEndereco.Update(newStringCliente, true);
             Console.Clear();
             return endereco;
         }
 
-        public void GravarEndereco(Endereco endereco)
-        {
-            String newStringEndereco = endereco.RetornarStringEndereco();
-            fileutilEndereco.Update(newStringEndereco);
-        }
 
         public Endereco InfoDoEndereco()
         {
@@ -64,26 +72,7 @@ namespace bem.vindo.Business
             return endereco;
         }
 
-        public String RetornarStringEndereco()
-        {
-            String separador = "|";
-            String separadorFinal = "#";
-            StringBuilder stringBuilder = new StringBuilder();
-            //foreach (var endereco in listaEndereco)
-            //{
-            stringBuilder.AppendLine(" " + IdAddress.ToString() + separador);
-            stringBuilder.AppendLine(" " + CodigoDoCliente.ToString() + separador);
-            stringBuilder.AppendLine(" " + TipoLogradouro.ToString() + separador);
-            stringBuilder.AppendLine(" " + NomeLogradouro + separador);
-            stringBuilder.AppendLine(" " + Complemento + separador);
-            stringBuilder.AppendLine(" " + CEP + separador);
-            stringBuilder.AppendLine(" " + Bairro + separador);
-            stringBuilder.AppendLine(" " + Cidade + separador);
-            stringBuilder.Append(" " + separadorFinal);
-            //}
-            String descricao = stringBuilder.ToString();
-            return descricao;
-        }
+        
 
         public Guid IdOfAddress()
         {
@@ -229,77 +218,27 @@ namespace bem.vindo.Business
             }
         }
 
-        public List<Endereco> LoadFromFile(Guid clientCode)
-        {
-            var list = LoadFromFile();
-            var returnAddress = list.Where(c => c.CodigoDoCliente == clientCode).ToList();
-           
-            return returnAddress;
-        }
-
         public void GetbyId(string addressid)
         {
             Guid id = Guid.Parse(addressid);
-            List<Endereco> addresslist = LoadFromFile();
-            var filterClient = addresslist.FirstOrDefault(c => c.IdAddress == id);
-            filterClient.InfoDoEndereco();
+            List<Endereco> jsonFileAddress = new List<Endereco>();
+            string fullFile = fileutilEndereco.CarregarFromFile();
+            jsonFileAddress = JsonConvert.DeserializeObject<List<Endereco>>(fullFile);
+            var filterAddress = jsonFileAddress.FirstOrDefault(c => c.IdAddress == id);
+            filterAddress.InfoDoEndereco();
         }
 
-        public List<Endereco> LoadFromFile()
+        public void GetbyCode(string clientCode)
         {
-            List<Endereco> listaEndereco = new List<Endereco>();
-
-            FileUtil fileutilEndereco = new FileUtil(EnumTipoArquivo.Endereco);
-
-            List<string> tempEndereco = fileutilEndereco.CarregarFromFile('#');
-
-            foreach (var item in tempEndereco)
+            Guid code = Guid.Parse(clientCode);
+            List<Endereco> jsonFileAddress = new List<Endereco>();
+            string fullFile = fileutilEndereco.CarregarFromFile();
+            jsonFileAddress = JsonConvert.DeserializeObject<List<Endereco>>(fullFile);
+            jsonFileAddress = jsonFileAddress.Where(c => c.CodigoDoCliente == code).ToList();
+            foreach (var item in jsonFileAddress)
             {
-                List<string> parametrosEndereco = fileutilEndereco.CarregarFromString('|', item);
-
-                Endereco enderecoNovo = new Endereco();
-                int count = parametrosEndereco.Count;
-                if (count >= 8 )
-                {
-                    var idAddress = parametrosEndereco[0];
-                    enderecoNovo.IdAddress = Guid.Parse(idAddress);
-
-                    var codigoDoCliente = parametrosEndereco[1];
-                    enderecoNovo.CodigoDoCliente = Guid.Parse(codigoDoCliente);
-
-                    var tipoLogradouro = parametrosEndereco[2];
-                    if (tipoLogradouro.Trim() == "Avenida")
-                    {
-                        enderecoNovo.TipoLogradouro = EnumTipoLogradouro.Avenida;
-                    }
-                    else if (tipoLogradouro.Trim() == "Rua")
-                    {
-                        enderecoNovo.TipoLogradouro = EnumTipoLogradouro.Rua;
-                    }
-                    else if (tipoLogradouro.Trim() == "Travessa")
-                    {
-                        enderecoNovo.TipoLogradouro = EnumTipoLogradouro.Travessa;
-                    }
-
-                    var nomeLogradouro = parametrosEndereco[3];
-                    enderecoNovo.NomeLogradouro = nomeLogradouro;
-
-                    var complemento = parametrosEndereco[4];
-                    enderecoNovo.Complemento = complemento;
-
-                    var cep = parametrosEndereco[5];
-                    enderecoNovo.CEP = cep;
-
-                    var bairro = parametrosEndereco[6];
-                    enderecoNovo.Bairro = bairro;
-
-                    var cidade = parametrosEndereco[7];
-                    enderecoNovo.Cidade = cidade;
-                }
-
-                listaEndereco.Add(enderecoNovo);
+                item.InfoDoEndereco();
             }
-            return listaEndereco;
         }
     }
 }
