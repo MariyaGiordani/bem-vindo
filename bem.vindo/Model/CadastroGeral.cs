@@ -41,6 +41,9 @@ namespace bem.vindo.Model
         {
             Cliente cliente = new Cliente();
             listaCliente = cliente.LoadFromFile();
+            cliente.SaveClienteEndereco(listaCliente);
+            
+
         }
     }
 }

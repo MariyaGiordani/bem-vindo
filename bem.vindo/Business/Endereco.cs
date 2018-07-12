@@ -228,7 +228,7 @@ namespace bem.vindo.Business
             filterAddress.InfoDoEndereco();
         }
 
-        public void GetbyCode(string clientCode)
+        public List<Endereco> GetbyCode(string clientCode)
         {
             Guid code = Guid.Parse(clientCode);
             List<Endereco> jsonFileAddress = new List<Endereco>();
@@ -239,6 +239,7 @@ namespace bem.vindo.Business
             {
                 item.InfoDoEndereco();
             }
+            return jsonFileAddress;
         }
     }
 }

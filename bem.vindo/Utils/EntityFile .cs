@@ -22,6 +22,9 @@ namespace bem.vindo.Utils
                 case "Endereco":
                     Path = @"c:\temp\CADASTROENDERECO.json";
                     break;
+                case "ClienteEndereco":
+                    Path = @"c:\temp\CADASTROCLIENTEENDERECO.json";
+                    break;
                 default:
                     break;
 

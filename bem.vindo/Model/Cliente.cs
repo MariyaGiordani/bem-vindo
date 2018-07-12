@@ -22,6 +22,7 @@ namespace bem.vindo.Model
 
         public List<Endereco> listaEndereco = new List<Endereco>();
         private FileUtil fileutilCliente = new FileUtil(EnumTipoArquivo.Cliente);
+        private FileUtil fileUtilClienteEndereco = new FileUtil(EnumTipoArquivo.ClienteEndereco);
         public Cliente CadastrarCliente()
         {
             Console.Clear();
@@ -62,7 +63,14 @@ namespace bem.vindo.Model
             return cliente;
         }
 
-  
+        internal void SaveClienteEndereco(List<Cliente> listaCliente)
+        {
+
+            string fullFile = fileUtilClienteEndereco.CarregarFromFile();
+            var clienteEnderecotemp = JsonConvert.SerializeObject(listaCliente);
+            fileUtilClienteEndereco.Update(clienteEnderecotemp.ToString());
+        }
+
         public void NomeCliente()
         {
             this.Nome = Console.ReadLine();
@@ -269,11 +277,11 @@ namespace bem.vindo.Model
             jsonFileCliente = JsonConvert.DeserializeObject<List<Cliente>>(fullFile);
             foreach (var item in jsonFileCliente)
             {
+
                 item.InfoDoCliente();
                 var code = item.CodigoDoCliente;
                 Endereco endereco = new Endereco();
-                endereco.GetbyCode(code.ToString());
-
+                item.listaEndereco = endereco.GetbyCode(code.ToString());
             }
             return jsonFileCliente;
         }
