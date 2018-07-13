@@ -10,6 +10,7 @@ using System.Runtime.Serialization;
 using bem.vindo.Util;
 using bem.vindo.Utils;
 using bem.vindo.Business;
+using GeneralDAO;
 
 namespace bem.vindo.Model
 {
@@ -42,8 +43,13 @@ namespace bem.vindo.Model
             Cliente cliente = new Cliente();
             listaCliente = cliente.LoadFromFile();
             cliente.SaveClienteEndereco(listaCliente);
-            
+        }
 
+        public void SQLTest()
+        {
+            ProjectConnection pc = new ProjectConnection();
+            pc.GetInfoSql("select * from Cliente");
+            pc.GetInfoSql("select * from Endereco");
         }
     }
 }
