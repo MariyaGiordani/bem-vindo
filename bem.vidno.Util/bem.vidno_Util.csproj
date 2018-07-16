@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5EF1FD8D-3E65-42FA-9839-3E4045422EAE}</ProjectGuid>
+    <ProjectGuid>{4C1FB68A-2550-482F-B63F-3AC74D673D07}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GeneralDAO</RootNamespace>
-    <AssemblyName>GeneralDAO</AssemblyName>
+    <RootNamespace>bem.vidno.Util</RootNamespace>
+    <AssemblyName>bem.vidno.Util</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,25 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProjectConnection.cs" />
+    <Compile Include="EntityFile .cs" />
+    <Compile Include="EnumTipoArquivo.cs" />
+    <Compile Include="FileUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="ADODB">
-      <Guid>{B691E011-1797-432E-907A-4D8C69339129}</Guid>
-      <VersionMajor>6</VersionMajor>
-      <VersionMinor>1</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\bemVindo.Models\bemVindo.Models.csproj">
-      <Project>{196913a5-edc7-42ce-8784-3f9b8f4d2a09}</Project>
-      <Name>bemVindo.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

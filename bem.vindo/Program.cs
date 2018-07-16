@@ -1,6 +1,6 @@
 ﻿using System;
 using bem.vindo.Model;
-using bem.vindo.Business;
+using bem.vindo.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

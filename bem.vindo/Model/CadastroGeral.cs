@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
-using bem.vindo.Util;
-using bem.vindo.Utils;
-using bem.vindo.Business;
+using bem.vindo_Util;
+using bem.vindo.Models;
 using GeneralDAO;
 
 namespace bem.vindo.Model

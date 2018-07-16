@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bem.vindo", "bem.vindo\bem.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralDAO", "GeneralDAO\GeneralDAO.csproj", "{5EF1FD8D-3E65-42FA-9839-3E4045422EAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bemVindo.Models", "bemVindo.Models\bemVindo.Models.csproj", "{196913A5-EDC7-42CE-8784-3F9B8F4D2A09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bem.vidno_Util", "bem.vidno.Util\bem.vidno_Util.csproj", "{4C1FB68A-2550-482F-B63F-3AC74D673D07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{5EF1FD8D-3E65-42FA-9839-3E4045422EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EF1FD8D-3E65-42FA-9839-3E4045422EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EF1FD8D-3E65-42FA-9839-3E4045422EAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{196913A5-EDC7-42CE-8784-3F9B8F4D2A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{196913A5-EDC7-42CE-8784-3F9B8F4D2A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{196913A5-EDC7-42CE-8784-3F9B8F4D2A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{196913A5-EDC7-42CE-8784-3F9B8F4D2A09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C1FB68A-2550-482F-B63F-3AC74D673D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C1FB68A-2550-482F-B63F-3AC74D673D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C1FB68A-2550-482F-B63F-3AC74D673D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C1FB68A-2550-482F-B63F-3AC74D673D07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

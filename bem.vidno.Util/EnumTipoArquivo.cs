@@ -1,5 +1,5 @@
 ﻿
-namespace bem.vindo.Utils
+namespace bem.vindo_Util
 {
     public enum EnumTipoArquivo 
     {

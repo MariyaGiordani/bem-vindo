@@ -1,6 +1,6 @@
 ﻿
 
-namespace bem.vindo.Utils
+namespace bem.vindo.Models
 {
     public enum EnumGenero
     {

@@ -5,11 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using bem.vindo.Utils;
-using bem.vindo.Model;
 using Newtonsoft.Json;
 
-namespace bem.vindo.Util
+namespace bem.vindo_Util
 {
     public class FileUtil //: IUtil
     {

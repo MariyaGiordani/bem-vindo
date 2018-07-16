@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace bem.vindo.Utils
+namespace bem.vindo_Util
 {
     public class EntityFile
     {

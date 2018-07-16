@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using bem.vindo.Business;
-using System.Text;
-using System.Threading.Tasks;
-using bem.vindo.Utils;
-using bem.vindo.Util;
 using System.IO;
 using Newtonsoft.Json;
+using bem.vindo_Util;
+using bem.vindo;
 
-namespace bem.vindo.Model
+namespace bem.vindo.Models
 {
     public class Cliente
     {
@@ -43,7 +40,7 @@ namespace bem.vindo.Model
             List<Cliente> jsonFileCliente = new List<Cliente>();
             string fullFile = fileutilCliente.CarregarFromFile();
             jsonFileCliente = JsonConvert.DeserializeObject<List<Cliente>>(fullFile);
-            if(jsonFileCliente == null)
+            if (jsonFileCliente == null)
             {
                 jsonFileCliente = new List<Cliente>();
             }
@@ -53,9 +50,9 @@ namespace bem.vindo.Model
             Console.Clear();
             Endereco endereco = new Endereco();
             for (int x = 1; x < 4; x++)
-            {                
+            {
                 endereco = endereco.CadastrarEndereco(cliente.CodigoDoCliente);
-               
+
                 cliente.listaEndereco.Add(endereco);
             }
             cliente.InfoDoCliente();
@@ -63,7 +60,7 @@ namespace bem.vindo.Model
             return cliente;
         }
 
-        internal void SaveClienteEndereco(List<Cliente> listaCliente)
+        public void SaveClienteEndereco(List<Cliente> listaCliente)
         {
 
             string fullFile = fileUtilClienteEndereco.CarregarFromFile();
@@ -150,8 +147,10 @@ namespace bem.vindo.Model
 
                     Console.WriteLine("Codigo do cliente: " + guid);
                     CodigoDoCliente = guid;
-                    procuraNoTxt();
-                    if (CadastroGeral.listaCliente.Any(c => c.CodigoDoCliente.ToString() == CodigoDoCliente.ToString()))
+                    List<Cliente> jsonFileCliente = new List<Cliente>();
+                    string fullFile = fileutilCliente.CarregarFromFile();
+                    jsonFileCliente = JsonConvert.DeserializeObject<List<Cliente>>(fullFile);
+                    if (jsonFileCliente.Any(c => c.CodigoDoCliente.ToString() == CodigoDoCliente.ToString()))
                     {
                         Console.WriteLine("Codigo de cliente já existe!");
                     }
@@ -168,25 +167,6 @@ namespace bem.vindo.Model
             }
             return Guid.NewGuid();
 
-        }
-
-        public void procuraNoTxt()
-        {
-            if (File.Exists(@"c:\temp\CADASTROCLIENTE.TXT"))
-            {
-                String encontro = string.Empty;
-                String procuraCodigoDoCliente = this.CodigoDoCliente.ToString();
-                using (StreamReader sr = new StreamReader(@"c:\temp\CADASTROCLIENTE.TXT"))
-                {
-                    String input = sr.ReadToEnd();
-                    encontro = "Codigo do Cliente: " + procuraCodigoDoCliente.ToString();
-                    if (input.Contains(encontro))
-                    {
-                        Console.WriteLine("Exista o codigo do cliente " + procuraCodigoDoCliente + " no arquivo TXT");
-                        CodigoCliente();
-                    }
-                }
-            }
         }
 
         public void TipoGeneros()
@@ -287,3 +267,4 @@ namespace bem.vindo.Model
         }
     }
 }
+

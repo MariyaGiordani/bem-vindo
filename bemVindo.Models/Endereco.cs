@@ -1,15 +1,11 @@
-﻿using bem.vindo.Utils;
-using bem.vindo.Util;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using bem.vindo.Model;
 using System.IO;
 using Newtonsoft.Json;
+using bem.vindo_Util;
 
-namespace bem.vindo.Business
+namespace bem.vindo.Models
 {
     [Serializable]
     public class Endereco
@@ -72,7 +68,7 @@ namespace bem.vindo.Business
             return endereco;
         }
 
-        
+
 
         public Guid IdOfAddress()
         {
@@ -85,8 +81,18 @@ namespace bem.vindo.Business
 
                     Console.WriteLine("Id do endereço: " + guid);
                     IdAddress = guid;
-                    procuraNoTxt();
+                    List<Endereco> jsonFileEndereco = new List<Endereco>();
+                    string fullFile = fileutilEndereco.CarregarFromFile();
+                    jsonFileEndereco = JsonConvert.DeserializeObject<List<Endereco>>(fullFile);
+                    if (jsonFileEndereco.Any(c => c.IdAddress.ToString() == IdAddress.ToString()))
+                    {
+                        Console.WriteLine("Codigo de cliente já existe!");
+                    }
+                    else
+                    {
                         test = false;
+                    }
+                    test = false;
                 }
                 catch (Exception)
                 {
@@ -96,25 +102,6 @@ namespace bem.vindo.Business
             }
             return Guid.NewGuid();
 
-        }
-
-        public void procuraNoTxt()
-        {
-            if (File.Exists(@"c:\temp\CADASTROENDERECO.TXT"))
-            {
-                String encontro = string.Empty;
-                String procuraCodigoDoCliente = this.CodigoDoCliente.ToString();
-                using (StreamReader sr = new StreamReader(@"c:\temp\CADASTROENDERECO.TXT"))
-                {
-                    String input = sr.ReadToEnd();
-                    encontro = "Id do endereço: " + procuraCodigoDoCliente.ToString();
-                    if (input.Contains(encontro))
-                    {
-                        Console.WriteLine("Exista o Id do endereço" + procuraCodigoDoCliente + " no arquivo TXT");
-                        IdOfAddress();
-                    }
-                }
-            }
         }
 
         public void NomeDoLogradouro()
