@@ -10,36 +10,37 @@ using System.Runtime.Serialization;
 using bem.vindo_Util;
 using bem.vindo.Models;
 using GeneralDAO;
+using bem.vindo_Busines;
 
 namespace bem.vindo.Model
 {
     public class CadastroGeral
     {
-        public static List<Cliente> listaCliente = new List<Cliente>();
+        public static List<ClientBusiness> listaCliente = new List<ClientBusiness>();
 
         public void CadastroCliente()
         {
-            Cliente cliente = new Cliente();
+            ClientBusiness cliente = new ClientBusiness();
             cliente = cliente.CadastrarCliente();
 
             listaCliente.Add(cliente);
         }
         public void ListagemClienteID(string code)
         {
-            Cliente cliente = new Cliente();
+            ClientBusiness cliente = new ClientBusiness();
             cliente.GetbyCode(code);
         }
 
         public void ListagemEnderecoID(string id)
         {
-            Endereco endereco = new Endereco();
+            EnderecoBusiness endereco = new EnderecoBusiness();
             endereco.GetbyId(id);
         }
 
 
         public void CarregarDadosTxt()
         {
-            Cliente cliente = new Cliente();
+            ClientBusiness cliente = new ClientBusiness();
             listaCliente = cliente.LoadFromFile();
             cliente.SaveClienteEndereco(listaCliente);
         }

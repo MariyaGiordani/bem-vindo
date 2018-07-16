@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{72E3412A-CFEE-46B2-A5BB-956C064DE2DD}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>bem.vindo</RootNamespace>
-    <AssemblyName>bem.vindo</AssemblyName>
+    <ProjectGuid>{96B58D58-0AC5-44B4-97EB-D4C35C05A35F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>bem.vindo_Business</RootNamespace>
+    <AssemblyName>bem.vindo_Business</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -45,32 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\CadastroGeral.cs" />
-    <Compile Include="Utils\IUtil.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="EnderecoBusiness.cs" />
+    <Compile Include="ClientBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\bem.vidno.Util\bem.vidno_Util.csproj">
-      <Project>{4c1fb68a-2550-482f-b63f-3ac74d673d07}</Project>
+      <Project>{4C1FB68A-2550-482F-B63F-3AC74D673D07}</Project>
       <Name>bem.vidno_Util</Name>
     </ProjectReference>
-    <ProjectReference Include="..\bem.vindo_Business\bem.vindo_Business.csproj">
-      <Project>{96B58D58-0AC5-44B4-97EB-D4C35C05A35F}</Project>
-      <Name>bem.vindo_Business</Name>
-    </ProjectReference>
     <ProjectReference Include="..\bemVindo.Models\bemVindo.Models.csproj">
-      <Project>{196913a5-edc7-42ce-8784-3f9b8f4d2a09}</Project>
+      <Project>{196913A5-EDC7-42CE-8784-3F9B8F4D2A09}</Project>
       <Name>bemVindo.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GeneralDAO\GeneralDAO.csproj">
-      <Project>{5ef1fd8d-3e65-42fa-9839-3e4045422eae}</Project>
-      <Name>GeneralDAO</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
