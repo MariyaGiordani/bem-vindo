@@ -56,6 +56,10 @@
       <Project>{196913A5-EDC7-42CE-8784-3F9B8F4D2A09}</Project>
       <Name>bemVindo.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GeneralDAO\GeneralDAO.csproj">
+      <Project>{5EF1FD8D-3E65-42FA-9839-3E4045422EAE}</Project>
+      <Name>GeneralDAO</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -10,7 +10,13 @@ namespace GeneralDAO
 {
     public class ProjectConnection
     {
-        private static SqlConnection connect = null;
+
+       public SqlConnection connect = null;
+
+        public ProjectConnection()
+        {
+            Connection();
+        }
 
         private void Connection()
         {
@@ -24,41 +30,40 @@ namespace GeneralDAO
             }
         }
 
-        public void GetInfoSql(string query)
-        {
-            Connection();
-            SqlCommand cmd = new SqlCommand(query , connect);
-            Connection(cmd);
-            connect.Close();
+        public SqlDataReader GetInfoSql(string query)
+        {            
+            SqlCommand cmd = new SqlCommand(query, connect);
+            return Connection(cmd);
         }
 
-        
 
-        private void Connection(SqlCommand cmd)
-        { 
+
+        private SqlDataReader Connection(SqlCommand cmd)
+        {
+            SqlDataReader reader = null;
             try
-            {
-                connect.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                IDataRecord row = reader;
-                while (reader.Read())
-                {
-                    if (row.FieldCount == 7)
-                    {
-                        Console.WriteLine(String.Format("{0}, {1}, {2}, {3}, {4}, {5}, {6}", row[0], row[1], row[2], row[3], row[4], row[5], row[6]));
-                    }
-                    else
-                    {
-                        Console.WriteLine(String.Format("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8} ", row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]));
-                    }
-                }
-                reader.Close();
-                connect.Close();
+            {               
+               reader =   cmd.ExecuteReader();
+                //IDataRecord row = reader;
+                //while (reader.Read())
+                //{
+                //    if (row.FieldCount == 7)
+                //    {
+                //        Console.WriteLine(String.Format("{0}, {1}, {2}, {3}, {4}, {5}, {6}", row[0], row[1], row[2], row[3], row[4], row[5], row[6]));
+                //    }
+                //    else
+                //    {
+                //        Console.WriteLine(String.Format("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8} ", row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]));
+                //    }
+                //}
+                //reader.Close();
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Mensagem: " + ex);
             }
+            return reader;
         }
     }
 }

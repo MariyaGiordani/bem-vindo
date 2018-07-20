@@ -46,10 +46,9 @@ namespace bem.vindo.Model
         }
 
         public void SQLTest()
-        {
-            ProjectConnection pc = new ProjectConnection();
-            pc.GetInfoSql("select * from Cliente");
-            pc.GetInfoSql("select * from Endereco");
+        {            
+            ClientBusiness cb = new ClientBusiness();
+            cb.ListClientFromDB();
         }
     }
 }

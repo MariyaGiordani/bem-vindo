@@ -9,7 +9,7 @@ using System.IO;
 
 namespace bem.vindo.Model
 {
-    class Program
+    class Program 
     {
         static void Main(string[] args)
         {
@@ -24,8 +24,7 @@ namespace bem.vindo.Model
                     Console.WriteLine("| 1 - Cadastrar novo cliente                    |");
                     Console.WriteLine("| 2 - Listager cliente por ID                   |");
                     Console.WriteLine("| 3 - Listager endereco por ID                  |");
-                    Console.WriteLine("| 4 - Carregar dados do arquivo                 |");
-                    Console.WriteLine("| 5 - SQL Test                                  |");
+                    Console.WriteLine("| 4 - Carregar dados do SQL                     |");
                     Console.WriteLine("| 0 - Sair                                      |");
                     Console.WriteLine(" ===============================================\n");
                     Console.WriteLine("Digite a opção que gostaria?");
@@ -38,16 +37,13 @@ namespace bem.vindo.Model
                             break;
                         case 2:
                             var code = Console.ReadLine();
-                            cadastro.ListagemClienteID(code);
+                            cadastro.ListagemClienteID(code);                            
                             break;
                         case 3:
                             var id = Console.ReadLine();
                             cadastro.ListagemEnderecoID(id);
                             break;
                         case 4:
-                            cadastro.CarregarDadosTxt();
-                            break;
-                        case 5:
                             cadastro.SQLTest();
                             break;
                         default:
@@ -56,7 +52,7 @@ namespace bem.vindo.Model
                             break;
                     }
                     Console.ReadKey();
-                    Console.Clear();
+                    Console.Clear();                    
                 }
                 catch (Exception ex)
                 {

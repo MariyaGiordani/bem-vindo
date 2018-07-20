@@ -17,6 +17,8 @@ namespace bem.vindo.Models
         public EnumEstadoCivil EstadoCivil { get; set; }
         public EnumGenero Genero { get; set; }
         public List<Endereco> listaEndereco = new List<Endereco>();
+
+        
     }
 
 }
