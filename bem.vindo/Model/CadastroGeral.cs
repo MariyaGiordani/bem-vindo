@@ -25,6 +25,13 @@ namespace bem.vindo.Model
 
             listaCliente.Add(cliente);
         }
+
+        public void DeleteCliente(string code)
+        {
+            ClientBusiness cliente = new ClientBusiness();
+            cliente.DeleteByCode(code);
+        }
+
         public void ListagemClienteID(string code)
         {
             ClientBusiness cliente = new ClientBusiness();
@@ -49,6 +56,12 @@ namespace bem.vindo.Model
         {            
             ClientBusiness cb = new ClientBusiness();
             cb.ListClientFromDB();
+        }
+
+        public void ChangeClientName(string nameCliente)
+        {
+            ClientBusiness cliente = new ClientBusiness();
+            cliente.ChangeName(nameCliente);
         }
     }
 }

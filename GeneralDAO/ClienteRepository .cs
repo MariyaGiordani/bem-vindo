@@ -17,9 +17,17 @@ namespace GeneralDAO
             _projectConnection = projectConnection;
         }
 
-        public void Create()
+        public void Create(string name)
         {
+            _projectConnection.connect.Open();
+            Console.WriteLine("Digite o novo nome com que você gostaria de substituir:");
+            string newNome = Console.ReadLine();
+            string query = "Update Cliente set Nome = '" + newNome + "' where Nome = '" + name + "'";
+            SqlCommand comando = new SqlCommand(query, _projectConnection.connect);
 
+            comando.ExecuteNonQuery();
+
+            _projectConnection.connect.Close();
         }
 
         public List<Cliente> GetAll()
@@ -121,9 +129,27 @@ namespace GeneralDAO
             }
         }
 
-        public void Delete()
+        public void Delete(Cliente client)
         {
+            try
+            {
+                _projectConnection.connect.Open();
+                
+                string query = "Delete from Cliente where CodigoCliente = @CodigoCliente";
 
+                SqlCommand command = new SqlCommand(query,_projectConnection.connect);
+                command.CommandType = System.Data.CommandType.Text;
+                command.CommandText = query;
+                command.Parameters.AddWithValue("@CodigoCliente", client.CodigoDoCliente);
+                
+                command.ExecuteNonQuery();
+                _projectConnection.connect.Close();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("\nMensagem: " + ex.Message);
+            }
         }
 
     }

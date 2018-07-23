@@ -124,9 +124,32 @@ namespace GeneralDAO
             }
         }
 
-        public void Delete()
+        public void UpdateInfo()
         {
 
+        }
+
+        public void Delete(string clientCode)
+        {
+            try
+            {
+                _projectConnection.connect.Open();
+
+                string query = "Delete from Endereco where CodigoCliente = @CodigoCliente";
+
+                SqlCommand command = new SqlCommand(query, _projectConnection.connect);
+                command.CommandType = System.Data.CommandType.Text;
+                command.CommandText = query;
+                command.Parameters.AddWithValue("@CodigoCliente", clientCode);
+
+                command.ExecuteNonQuery();
+                _projectConnection.connect.Close();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("\nMensagem: " + ex.Message);
+            }
         }
     }
 }

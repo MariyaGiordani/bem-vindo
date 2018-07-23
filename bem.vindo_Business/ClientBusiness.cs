@@ -248,12 +248,24 @@ namespace bem.vindo_Busines
         }
 
 
-        public void GetbyCode(string clientCode)
+        public Cliente GetbyCode(string clientCode)
         {
             ProjectConnection pc = new ProjectConnection();
             ClienteRepository cr = new ClienteRepository(pc);
             var client = cr.GetByCode(clientCode);
             var clienBusiness = loadClientBusiness(client);
+            return client;
+        }
+
+        public void DeleteByCode(string clientCode)
+        {
+            ProjectConnection pc = new ProjectConnection();
+            ClienteRepository cr = new ClienteRepository(pc);
+            EnderecoRepository er = new EnderecoRepository(pc);
+            var client = GetbyCode(clientCode);
+            Console.WriteLine("\nCliente e endereco dele vão ser deletado!!!");
+            cr.Delete(client);
+            er.Delete(clientCode);
         }
 
         public List<ClientBusiness> LoadFromFile()
@@ -298,6 +310,13 @@ namespace bem.vindo_Busines
             clientBusiness.Genero = dbCliente.Genero;
             clientBusiness.InfoDoCliente();
             return clientBusiness;
+        }
+
+        public void ChangeName(string name)
+        {
+            ProjectConnection pc = new ProjectConnection();
+            ClienteRepository cr = new ClienteRepository(pc);
+            cr.Create(name);
         }
     }
 }

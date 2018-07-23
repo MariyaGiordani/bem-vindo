@@ -24,7 +24,9 @@ namespace bem.vindo.Model
                     Console.WriteLine("| 1 - Cadastrar novo cliente                    |");
                     Console.WriteLine("| 2 - Listager cliente por ID                   |");
                     Console.WriteLine("| 3 - Listager endereco por ID                  |");
-                    Console.WriteLine("| 4 - Carregar dados do SQL                     |");
+                    Console.WriteLine("| 4 - Deletar ciente por ID                     |");
+                    Console.WriteLine("| 5 - Mudar o nome do client                    |");
+                    Console.WriteLine("| 6 - Carregar dados do SQL                     |");
                     Console.WriteLine("| 0 - Sair                                      |");
                     Console.WriteLine(" ===============================================\n");
                     Console.WriteLine("Digite a opção que gostaria?");
@@ -44,6 +46,15 @@ namespace bem.vindo.Model
                             cadastro.ListagemEnderecoID(id);
                             break;
                         case 4:
+                            var codeClient = Console.ReadLine();
+                            cadastro.DeleteCliente(codeClient);
+                            break;
+                        case 5:
+                            Console.WriteLine("\nDigite o nome que você gostaria de mudar: ");
+                            string nameCliente = Console.ReadLine();
+                            cadastro.ChangeClientName(nameCliente);
+                            break;
+                        case 6:
                             cadastro.SQLTest();
                             break;
                         default:
